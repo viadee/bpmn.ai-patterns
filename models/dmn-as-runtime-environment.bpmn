@@ -36,31 +36,24 @@
     <bpmn:sequenceFlow id="Flow_0hdeakw" sourceRef="Event_00qz1b8" targetRef="Activity_1tiiuop" />
     <bpmn:sequenceFlow id="Flow_1feg90h" sourceRef="Event_07eenmj" targetRef="Activity_1iucze9" />
     <bpmn:sequenceFlow id="Flow_1hnoycz" sourceRef="Activity_1iucze9" targetRef="Event_1yg07ct" />
-    <bpmn:textAnnotation id="TextAnnotation_0vwgvdf">
-      <bpmn:text>DMN als minimale KI-Laufzeitumgebung</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_1jsjkoj" sourceRef="Event_1jbtnmp" targetRef="TextAnnotation_0vwgvdf" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1e23ikv">
-      <bpmndi:BPMNShape id="TextAnnotation_0vwgvdf_di" bpmnElement="TextAnnotation_0vwgvdf">
-        <dc:Bounds x="676" y="160" width="145" height="41" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0cjfd0y_di" bpmnElement="Flow_0cjfd0y">
-        <di:waypoint x="500" y="280" />
-        <di:waypoint x="702" y="280" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0hdeakw_di" bpmnElement="Flow_0hdeakw">
-        <di:waypoint x="195" y="280" />
-        <di:waypoint x="400" y="280" />
+      <bpmndi:BPMNEdge id="Flow_1hnoycz_di" bpmnElement="Flow_1hnoycz">
+        <di:waypoint x="357" y="120" />
+        <di:waypoint x="419" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1feg90h_di" bpmnElement="Flow_1feg90h">
         <di:waypoint x="195" y="120" />
         <di:waypoint x="257" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1hnoycz_di" bpmnElement="Flow_1hnoycz">
-        <di:waypoint x="357" y="120" />
-        <di:waypoint x="419" y="120" />
+      <bpmndi:BPMNEdge id="Flow_0hdeakw_di" bpmnElement="Flow_0hdeakw">
+        <di:waypoint x="195" y="280" />
+        <di:waypoint x="400" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cjfd0y_di" bpmnElement="Flow_0cjfd0y">
+        <di:waypoint x="500" y="280" />
+        <di:waypoint x="702" y="280" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_1jbtnmp_di" bpmnElement="Event_1jbtnmp">
         <dc:Bounds x="702" y="262" width="36" height="36" />
@@ -83,10 +76,6 @@
       <bpmndi:BPMNShape id="DataStoreReference_1hzc0u0_di" bpmnElement="DataStoreReference_1hzc0u0">
         <dc:Bounds x="287" y="185" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1jsjkoj_di" bpmnElement="Association_1jsjkoj">
-        <di:waypoint x="725" y="263" />
-        <di:waypoint x="725" y="201" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0wvzjdb_di" bpmnElement="DataInputAssociation_0wvzjdb">
         <di:waypoint x="337" y="219" />
         <di:waypoint x="403" y="243" />
