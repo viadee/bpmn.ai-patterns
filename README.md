@@ -1,6 +1,6 @@
 # bpmn.ai Process Patterns - KI orchestrieren
 
-Mit einem erfolgreichen KI-Proof-of-Concept fängt die Reise oft erst an. Zur Orchestrierung von KI-Services gibt es noch wenig. Werkzeugunterstützung und methodische Diskussionen umfassen oft nur noch die Bereitstellung von Pipelines (bspw. Kubeflow) und Web-Services in einer Cloud, die ein Machine Learning-Modell nutzbar machen... und dann?
+Mit einem erfolgreichen KI-Proof-of-Concept fängt die Reise oft erst an. Zur Orchestrierung von KI-Services gibt es noch wenig. Werkzeugunterstützung und methodische Diskussionen umfassen oft nur noch die Bereitstellung von Pipelines (bspw. Kubeflow) und Web-Services in einer Cloud, die ein Machine Learning-Modell nutzbar machen… und dann?
 
 Unternehmen, die bereits eine Workflow-Engine einsetzen, haben ein gemachtes Nest für KI-Anwendungsfälle. Es gibt verschiedene Integrationsmuster, mit eigenen Vor- und Nachteilen, die sich gut als kleine BPMN-Prozesse verstehen lassen. Dies ist eine wichtige Perspektive, um Ansprüchen an Fairness und Transparenz beim KI-Einsatz gerecht zu werden.
 
@@ -28,7 +28,7 @@ Ein Beispiel dazu: Im Input-Management klassifiziert eine KI eingehende Geschäf
 * Eine Kündigung als eingehenden Neukunden-Vertrag zu klassifizieren ist schade, hat aber kaum wirtschaftliche Konsequenzen.
 * Sind die wirtschaftlichen Konsequenzen von Fehlern schwer abzuschätzen, kann zumindest versucht werden günstige (oder günstig zu korrigierende) Prozesse zu bevorzugen.
 
-Der Lehrbuchansatz "Trefferquote maximieren" impliziert, dass alle Fehler die gleichen Auswirkungen haben. Das reicht für einen proof-of-concept, aber nicht für einen produktiven, wirtschaftlichen Einsatz der KI-Komponenten. Um diese Gewichtungen machen zu können, braucht es eine Prozessdaten-Sammlung als Grundlage.
+Der Lehrbuchansatz “Trefferquote maximieren” impliziert, dass alle Fehler die gleichen Auswirkungen haben. Das reicht für einen proof-of-concept, aber nicht für einen produktiven, wirtschaftlichen Einsatz der KI-Komponenten. Um diese Gewichtungen machen zu können, braucht es eine Prozessdaten-Sammlung als Grundlage.
 
 :bulb: Kennzahlen für nicht-manuelle Aktivitäten wie bspw. externe Services stellt die Prozess-Engine auch im Protokoll zur Verfügung.
 
@@ -50,7 +50,7 @@ Um diesen Sachverhalt zu adressieren kann ein KI-Verfahren der Anomalie-Erkennun
 
 ![Anomaly Detection last](models/anomaly-detection-last.png "Anomaly Detection last")
 
-Die KI-trifft hier keine eigene, fachliche Entscheidung, kann aber fachliche Entscheidungen anderer (Menschen und Systeme) aufhalten, sofern diese "seltsam" aussehen. Die Einführung ist damit einfacher zu argumentieren, birgt aber ggf. weniger Ersparnisse als Optimierungen. Grundlage der Anomalie-Erkennung ist, dass ein KI-Modell lernt, was Normalität in einem Geschäftsprozess oder seinen Ergebnissen ausmacht - oder eben verletzt. Das kann an offensichtlichen Dingen wie Tarifen oder Kosten festgemacht sein aber durchaus mehr Faktoren umfassen, als bei manueller Prüfung überschaubar wären. Optional könnten auch Aspekte des Prozess-Verlaufs Teil der Anomalie-Erkennung werden, um bspw. besonders lang laufende oder (im Vergleich zur erlernten Normalität) besonders oft zirkulierte Prozesse automatisch zu eskalieren.
+Die KI-trifft hier keine eigene, fachliche Entscheidung, kann aber fachliche Entscheidungen anderer (Menschen und Systeme) aufhalten, sofern diese “seltsam” aussehen. Die Einführung ist damit einfacher zu argumentieren, birgt aber ggf. weniger Ersparnisse als Optimierungen. Grundlage der Anomalie-Erkennung ist, dass ein KI-Modell lernt, was Normalität in einem Geschäftsprozess oder seinen Ergebnissen ausmacht - oder eben verletzt. Das kann an offensichtlichen Dingen wie Tarifen oder Kosten festgemacht sein aber durchaus mehr Faktoren umfassen, als bei manueller Prüfung überschaubar wären. Optional könnten auch Aspekte des Prozess-Verlaufs Teil der Anomalie-Erkennung werden, um bspw. besonders lang laufende oder (im Vergleich zur erlernten Normalität) besonders oft zirkulierte Prozesse automatisch zu eskalieren.
 
 :warning: Achtung: Hier wird vorausgesetzt, dass es sich eine Normalität etabliert hat. Für einzelne Geschäftsprozesse kann diese Annahme falsch sein, bspw. für sehr neue Prozesse oder solche die sich gerade stark verändert haben.
 
@@ -63,7 +63,7 @@ Die Nutzung von Process-Engines ist eine Investition in Flexibilität - Verände
 
 ![Controlled Confidence](models/controlled-confidence.png "Controlled Confidence")
 
-Eine KI-Komponente kommt immer als erstes zum Zuge und trifft eine Klassifikations-Entscheidung wie bspw.: "Muss dieser Schadensfall einer Versicherung von einem Sachverständigen geprüft werden?" Neben der Entscheidung selbst, gibt die KI-Komponente an, wie sicher sie mit ihrer eigenen Entscheidung ist (Confidence). Dies wird üblicherweise auf dem Wertebereich 0.0 bis 1.0 angegeben wobei 1.0 einer 100%-Sicherheit entspricht, die faktisch kaum erreichbar ist. Abhängig von diesem Konfidenzwert verzweigen wir nach Bedarf zur Sachbearbeitung oder umgehen sie:
+Eine KI-Komponente kommt immer als erstes zum Zuge und trifft eine Klassifikations-Entscheidung wie bspw.: “Muss dieser Schadensfall einer Versicherung von einem Sachverständigen geprüft werden?” Neben der Entscheidung selbst, gibt die KI-Komponente an, wie sicher sie mit ihrer eigenen Entscheidung ist (Confidence). Dies wird üblicherweise auf dem Wertebereich 0.0 bis 1.0 angegeben wobei 1.0 einer 100%-Sicherheit entspricht, die faktisch kaum erreichbar ist. Abhängig von diesem Konfidenzwert verzweigen wir nach Bedarf zur Sachbearbeitung oder umgehen sie:
 
 * Mindestkonfidenz = 100% - das käme einem Test- oder Pilotbetrieb gleich. Die KI-Komponente operiert live auf den Echtdaten, wird aber faktisch nie eine Entscheidung autonom treffen, weil die 100%-Schwelle nie erreicht wird. Auch menschliche Sachbearbeiter:innen hätten eine Rest-Unsicherheit, quantifizieren diese aber nicht.
 * Mindestkonfidenz = ~93.45% - Die KI entscheidet wenn sie es sicher kann und schleust Standardfälle an der Sachbearbeiterin vorbei, denn für Standardfälle wird eine hohe Konfidenz möglich sein. Den konkreten Schwellwert kann man auf Prozess- und Fehlerkosten hin optimieren, sodass ggf. Schwellwerte mit mehreren Nachkommastellen sinnvoll sind.
@@ -73,7 +73,7 @@ Einspruch!
 
 Nach Art. 22 (Rechtmäßigkeit der Verarbeitung) Abs. 1 der DSGVO gibt es ein Einspruchsrecht, bzw. die Einwilligung von Personen kann notwendig sein, um deren Daten zu bestimmten Zwecken zu verarbeiten - neben anderen Gründen für die Rechtmäßigkeit der Verarbeitung sollte dies der Normalfall sein.
 
-Die Anwendung von Machine-Learning-Modellen wäre sicher eine Nutzung, die Aufnahme in den Trainingsdatenbestand sicher auch. Widerspricht eine Kundin dieser Nutzung, braucht es einen "Plan B" im Geschäftsprozess, für den sich ML-Serving-Tools oft nicht zuständig fühlen.
+Die Anwendung von Machine-Learning-Modellen wäre sicher eine Nutzung, die Aufnahme in den Trainingsdatenbestand sicher auch. Widerspricht eine Kundin dieser Nutzung, braucht es einen “Plan B” im Geschäftsprozess, für den sich ML-Serving-Tools oft nicht zuständig fühlen.
 
 :bulb: Dies kann in ähnlicher Weise auf dem Prozessorchestrierungs-Level der IT-Architektur umgesetzt werden, wie man bspw. VIP-Geschäftsvorfälle in Dienstleistungsunternehmen handhabt.
 
@@ -83,7 +83,7 @@ Eine Prozess-Konstruktion mit Fokus auf Intervenierbarkeit ist die Entscheidungs
 
 ![Decision Support - AI first](models/decision-support-ai-first.png "Decision Support - AI first")
 
-:warning: Systeme dieser Art machen, trotz ihrer Invervenierbarkeit und dem vermeintlichen Fokus auf die menschliche Entscheidung eine ethische Betrachtung notwendig. Sachbearbeiter:innen werden sich im Zweifel für Abweichungen von der "KI-Vorgabe" rechtfertigen müssen. Das schafft einen Anreiz, dies nicht zu tun, wie bspw. beim Österreicher AMS-Entscheidungsmodell. Dies würde das Modell aus ethischer Sicht zu einer Voll-Automatik verkommen lassen (inkl. der dann zu stellenden Qualitäts-Ansprüche), solange nicht organisatorisch sichergestellt ist, dass die menschliche Entscheidung unabhängig gefällt werden wird.
+:warning: Systeme dieser Art machen, trotz ihrer Invervenierbarkeit und dem vermeintlichen Fokus auf die menschliche Entscheidung eine ethische Betrachtung notwendig. Sachbearbeiter:innen werden sich im Zweifel für Abweichungen von der “KI-Vorgabe” rechtfertigen müssen. Das schafft einen Anreiz, dies nicht zu tun, wie bspw. beim Österreicher AMS-Entscheidungsmodell. Dies würde das Modell aus ethischer Sicht zu einer Voll-Automatik verkommen lassen (inkl. der dann zu stellenden Qualitäts-Ansprüche), solange nicht organisatorisch sichergestellt ist, dass die menschliche Entscheidung unabhängig gefällt werden wird.
 
 Im besten Fall entsteht so ein Mensch-Maschine-4-Augen-Prinzip, dass das Gesamtniveau an Entscheidungsqualität und Konsistenz über mehrere Entscheidungsträger:innen hinweg verbessert und damit Fairness im Sinne einer Gleichbehandlung fördert.
 
@@ -133,9 +133,11 @@ Eine Anomalieerkennung bewertet jeden Fall zuerst mit einem Anomalie-Score. Beis
 * Mittlere Anomalie-Scores sind selten. Prozessverantwortliche kontrollieren einen, der Konfidenz äquivalenten, Schwellwert. Wird dieser überschritten handelt es sich um eine Anomalie, die menschliche Aufmerksamkeit benötigt. Auf diese Weise werden nützliche Trainingsdaten erzeugt.
 * Hohe Anomalie-Scores - Anomalien - werden grundsätzlich von einer manuellen Sachbearbeitung übernommen. Hier besteht dauerhaft wenig Hoffnung auf Automatisierung, aber die Aufmerksamkeit ist hier auch gut investiert. 
 
-Anomalieerkennung begegnet dem Risiko unbekannte Fälle durch die Automatisierung "rutschen" zu lassen. Zwar sollte eine ML-basierte Klassifizierung Anomalien mit niedriger Konfidenz bewerten, jedoch sind Anomalie-Scores und Konfidenzwerte unterschiedliche Anwendungsfälle.
+Anomalieerkennung begegnet dem Risiko unbekannte Fälle durch die Automatisierung “rutschen” zu lassen. Zwar sollte eine ML-basierte Klassifizierung Anomalien mit niedriger Konfidenz bewerten, jedoch sind Anomalie-Scores und Konfidenzwerte unterschiedliche Anwendungsfälle.
 
-Anomalien könnte Sonderfälle identifizieren, welche wohlmöglich Chancen auf Prozessverbesserung bieten. Mindestens aber lernen zukünftige Modelle sicherer mit diesen Fällen umzugehen.
+Anomalien könnte Sonderfälle identifizieren, welche wohlmöglich Chancen auf Prozessverbesserung bieten. Mindestens aber lernen zukünftige Modelle durch das gezielte Erzeugen neuer Lerndaten sicherer mit diesen Fällen umzugehen.
+
+:bulb: Machine Learning-Modelle, die für Dritte zugänglich sind, müssen sich ggf. auch gegen gezielte Angriffe schützen, die ein Modell gezielt in die Irre führen sollen (Adversarial Machine Learning). Der Aufbau hierzu ist identisch.
 
 ### Ensemble
 
@@ -148,13 +150,13 @@ Die Ensemble-Idee ist die Stärken von mehreren Verfahren zu kombinieren: Mehrer
 
 ![Ensemble](models/ensemble.png "Ensemble")
 
-Alternativ kann hier auch demokratisch entschieden werden. Oft werden Ensembles auch "verpackt" eingesetzt, d.h. so, dass sie aus der aufrufenden Architektur-Schicht als ein einziges Modell agieren. Ein Nachteil ist, dass Stärken und Schwächen der Teil-Modelle nach außen hin unsichtbar und damit auch unreflektierbar bleiben. Mit einer expliziten Modellierung wird auch ein schrittweiser Rollout neuer Modelle möglich: Neue "Mitbürger" kommen mit in die Demokratie und stimmen mit ab, geben vielleicht gute Konfidenzwerte an und bekommen so viel Entscheidungs-Gewicht - oder nicht.
+Alternativ kann hier auch demokratisch entschieden werden, ggf. auch mit menschlicher Beteiligung im Sinne eines 4-Augen-Prinzips. Oft werden Ensembles auch “verpackt” eingesetzt, d.h. so, dass sie aus der aufrufenden Architektur-Schicht als ein einziges Modell agieren. Ein Nachteil ist, dass Stärken und Schwächen der Teil-Modelle nach außen hin unsichtbar und damit auch unreflektierbar bleiben. Mit einer expliziten Modellierung wird auch ein schrittweiser Rollout neuer Modelle möglich: Neue “Mitbürger” kommen mit in die Demokratie und stimmen mit ab, geben vielleicht gute Konfidenzwerte an und bekommen so viel Entscheidungs-Gewicht - oder nicht.
 
 :warning: Lauf- und Lernzeiten steigen an, Feature-Wichtigkeiten sind schwerer abzuleiten.
 
-### Prozess-Zuordnung
+### Divide and Conquer - Prozess-Zuordnung
 
-Oft gilt es nicht nur einen Prozess zu automatisieren, sondern mehrere. Oft können Prozesse über mehrere Eingangskanäle durch Geschäftsvorfälle ausgelöst werden. Hier greift das Divide-and-Conquer Prinzip mit mehreren ML-Modellen.
+Oft gilt es nicht nur einen Prozess zu automatisieren, sondern mehrere. Oft können Prozesse über mehrere Eingangskanäle durch Geschäftsvorfälle ausgelöst werden. Hier greift das Divide-and-Conquer Prinzip mit mehreren ML-Modellen, die Teile einer Problemstellung lösen.
 
 ![Process Choice](models/process-choice.png "Process Choice")
 
@@ -166,7 +168,7 @@ Die Auftrennung dieser beiden Schritte ist strategisch sinnvoll, denn die Entity
 
 :warning: Es kann Vorfälle geben, die in keinen Prozess gehören oder mehrere Anliegen enthalten.
 
-:warning: Die für das Machine Learning verwendete Zielmetrik sollte nicht nur auf die "Trefferquote" optimieren, sondern individuelle Fehlerkosten berücksichtigen. Eine Falschklassifikation als Kündigung kann teuer werden.
+:warning: Die für das Machine Learning verwendete Zielmetrik sollte nicht nur auf die “Trefferquote” optimieren, sondern individuelle Fehlerkosten berücksichtigen. Eine Falschklassifikation als Kündigung kann teuer werden.
 
 ## Fazit
 
