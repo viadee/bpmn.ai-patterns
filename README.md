@@ -24,11 +24,11 @@ Kennzahlen dieser Art sind extrem wertvoll, um Chancen für KI-basierte Automati
 
 Ein Beispiel dazu: Im Input-Management klassifiziert eine KI eingehende Geschäftsvorfälle und leitet diese an die zuständigen Prozesse weiter. Das Machine-Learning hierzu wird auf einer Historie von manuellen Klassifikationen lernen und versuchen, diese in gleicher Weise zu klassifizieren. Jedes Machine Learning braucht eine Ziel-Kennzahl, die es zu optimieren gilt. Die Lehrbuch-Herangehensweise für Klassifikationsprobleme dieser Art ist ein Art Trefferquote von richtigen zu falschen Zuordnungen zu optimieren. Das funktioniert zwar, verschenkt aber systematisch Einsparpotenziale - letztlich ist das Ziel unvollständig definiert. Wenn wir versuchen möchten teuere Prozesse zu vermeiden, muss dieses Ziel Teil der Ziel-Kennzahl werden, denn in einem Input-Management sind nicht alle Fehl-Klassifikationen gleich teuer.
 
-Einen eingehenden Neukunden-Vertrag fälschlicherweise als Kündigung zu kategorisieren ist der größtmögliche Fehler.
-Eine Kündigung als eingehenden Neukunden-Vertrag zu klassifizieren ist schade, hat aber kaum wirtschaftliche Konsequenzen.
-Sind die wirtschaftlichen Konsequenzen von Fehlern schwer abzuschätzen, kann zumindest versucht werden günstige (oder günstig zu korrigierende) Prozesse zu bevorzugen.
+* Einen eingehenden Neukunden-Vertrag fälschlicherweise als Kündigung zu kategorisieren ist der größtmögliche Fehler.
+* Eine Kündigung als eingehenden Neukunden-Vertrag zu klassifizieren ist schade, hat aber kaum wirtschaftliche Konsequenzen.
+* Sind die wirtschaftlichen Konsequenzen von Fehlern schwer abzuschätzen, kann zumindest versucht werden günstige (oder günstig zu korrigierende) Prozesse zu bevorzugen.
 
-Der Lehrbuchansatz "Trefferquote" impliziert, dass alle Fehler die gleichen Auswirkungen haben. Das reicht für einen proof-of-concept, aber nicht für einen produktiven, wirtschaftlichen Einsatz der KI-Komponenten. Um diese Gewichtungen machen zu können, braucht es eine Prozessdaten-Sammlung als Grundlage.
+Der Lehrbuchansatz "Trefferquote maximieren" impliziert, dass alle Fehler die gleichen Auswirkungen haben. Das reicht für einen proof-of-concept, aber nicht für einen produktiven, wirtschaftlichen Einsatz der KI-Komponenten. Um diese Gewichtungen machen zu können, braucht es eine Prozessdaten-Sammlung als Grundlage.
 
 :bulb: Kennzahlen für nicht-manuelle Aktivitäten wie bspw. externe Services stellt die Prozess-Engine auch im Protokoll zur Verfügung.
 
