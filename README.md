@@ -31,14 +31,14 @@ Das erste und einfachste Muster enthält keine KI-Komponente, sondern nur einen 
 
 ![CollectOnly](models/collect-only.png "Collect only")
 
-Auch dieses Muster leistet schon einen Beitrag zur Umsetzung einer KI-Strategie: Da es eine manuelle Aktivität unter Prozesskontrolle bringt, macht es die Protokolle der Prozess-Engine  zugänglich für die Ableitung von steuerungsrelevanten Kennzahlen.
+Auch dieses Muster leistet schon einen Beitrag zur Umsetzung einer KI-Strategie: Da es eine manuelle Aktivität unter Prozesskontrolle bringt, macht es die Protokolle der Prozess-Engine zugänglich für die Ableitung von steuerungsrelevanten Kennzahlen.
 
 * Wie oft wird diese Aktivität ausgeführt?
 * Wie groß ist ihr Anteil an der Laufzeit des übergeordneten Geschäftsprozesses?
 * Wie teuer sind welche Aktivitäten?
 * Gibt es systematische Zusammenhänge von Input und Output einzelner Aktivitäten, die sich in Prozessvariablen erkennen lassen, die auf Automatisierbarkeit hoffen lassen?
 
-Kennzahlen dieser Art sind extrem wertvoll, um Chancen für KI-basierte Automatisierung identifizieren und priorisieren zu können. Auch als Teil der Zielfunktion vorgelagerter Machine-Learning-Prozesse können (sollten) sie dienen.
+Kennzahlen dieser Art sind wertvoll, um Chancen für KI-basierte Automatisierung identifizieren und priorisieren zu können. Auch als Teil der Zielfunktion vorgelagerter Machine-Learning-Prozesse können (sollten) sie dienen.
 
 Ein Beispiel dazu: Im Input-Management klassifiziert eine KI eingehende Geschäftsvorfälle und leitet diese an die zuständigen Prozesse weiter. Das Machine-Learning hierzu wird auf einer Historie von manuellen Klassifikationen lernen und versuchen, diese in gleicher Weise zu klassifizieren. Jedes Machine Learning braucht eine Ziel-Kennzahl, die es zu optimieren gilt. Die Lehrbuch-Herangehensweise für Klassifikationsprobleme dieser Art ist ein Art Trefferquote von richtigen zu falschen Zuordnungen zu optimieren. Das funktioniert zwar, verschenkt aber systematisch Einsparpotenziale - letztlich ist das Ziel unvollständig definiert. Wenn wir versuchen möchten teuere Prozesse zu vermeiden, muss dieses Ziel Teil der Ziel-Kennzahl werden, denn in einem Input-Management sind nicht alle Fehl-Klassifikationen gleich teuer.
 
@@ -68,7 +68,7 @@ Um diesen Sachverhalt zu adressieren kann ein KI-Verfahren der Anomalie-Erkennun
 
 ![Anomaly Detection last](models/anomaly-detection-last.png "Anomaly Detection last")
 
-Die KI-trifft hier keine eigene, fachliche Entscheidung, kann aber fachliche Entscheidungen anderer (Menschen und Systeme) aufhalten, sofern diese “seltsam” aussehen. Die Einführung ist damit einfacher zu argumentieren, birgt aber ggf. weniger Ersparnisse als Optimierungen. Grundlage der Anomalie-Erkennung ist, dass ein KI-Modell lernt, was Normalität in einem Geschäftsprozess oder seinen Ergebnissen ausmacht - oder eben verletzt. Das kann an offensichtlichen Dingen wie Tarifen oder Kosten festgemacht sein aber durchaus mehr Faktoren umfassen, als bei manueller Prüfung überschaubar wären. Optional könnten auch Aspekte des Prozess-Verlaufs Teil der Anomalie-Erkennung werden, um bspw. besonders lang laufende oder (im Vergleich zur erlernten Normalität) besonders oft zirkulierte Prozesse automatisch zu eskalieren.
+Die KI-trifft hier keine eigene, fachliche Entscheidung, kann aber fachliche Entscheidungen anderer (Menschen und Systeme) aufhalten, sofern diese “seltsam” aussehen. Die Einführung ist damit einfacher zu argumentieren, birgt aber ggf. weniger Ersparnisse als Optimierungen. Grundlage der Anomalie-Erkennung ist, dass ein KI-Modell lernt, was Normalität in einem Geschäftsprozess oder seinen Ergebnissen ausmacht - oder eben verletzt. Das kann an offensichtlichen Dingen wie Tarifen oder Kosten festgemacht sein aber durchaus mehr Faktoren umfassen, als bei manueller Prüfung überschaubar wären. Optional könnten auch Aspekte des Prozess-Verlaufs Teil der Anomalie-Erkennung werden, um bspw. besonders langlaufende oder (im Vergleich zur erlernten Normalität) besonders oft zirkulierte Prozesse automatisch zu eskalieren.
 
 :warning: Achtung: Hier wird vorausgesetzt, dass es sich eine Normalität etabliert hat. Für einzelne Geschäftsprozesse kann diese Annahme falsch sein, bspw. für sehr neue Prozesse oder solche die sich gerade stark verändert haben.
 
@@ -81,10 +81,10 @@ Die Nutzung von Process-Engines ist eine Investition in Flexibilität - Verände
 
 ![Controlled Confidence](models/controlled-confidence.png "Controlled Confidence")
 
-Eine KI-Komponente kommt immer als erstes zum Zuge und trifft eine Klassifikations-Entscheidung wie bspw.: “Muss dieser Schadensfall einer Versicherung von einem Sachverständigen geprüft werden?” Neben der Entscheidung selbst, gibt die KI-Komponente an, wie sicher sie mit ihrer eigenen Entscheidung ist (Confidence). Dies wird üblicherweise auf dem Wertebereich 0.0 bis 1.0 angegeben wobei 1.0 einer 100%-Sicherheit entspricht, die faktisch kaum erreichbar ist. Abhängig von diesem Konfidenzwert verzweigen wir nach Bedarf zur Sachbearbeitung oder umgehen sie:
+Eine KI-Komponente kommt immer als erstes zum Zuge und trifft eine Klassifikations-Entscheidung wie bspw.: “Muss dieser Schadensfall einer Versicherung von einem Sachverständigen geprüft werden?” Neben der Entscheidung selbst, gibt die KI-Komponente an, wie sicher sie mit ihrer eigenen Entscheidung ist (Confidence). Dies wird üblicherweise auf dem Wertebereich 0.0 bis 1.0 angegeben, wobei 1.0 einer 100%-Sicherheit entspricht, die faktisch kaum erreichbar ist. Abhängig von diesem Konfidenzwert verzweigen wir nach Bedarf zur Sachbearbeitung oder umgehen sie:
 
 * Mindestkonfidenz = 100% - das käme einem Test- oder Pilotbetrieb gleich. Die KI-Komponente operiert live auf den Echtdaten, wird aber faktisch nie eine Entscheidung autonom treffen, weil die 100%-Schwelle nie erreicht wird. Auch menschliche Sachbearbeiter:innen hätten eine Rest-Unsicherheit, quantifizieren diese aber nicht.
-* Mindestkonfidenz = ~93.45% - Die KI entscheidet wenn sie es sicher kann und schleust Standardfälle an der Sachbearbeiterin vorbei, denn für Standardfälle wird eine hohe Konfidenz möglich sein. Den konkreten Schwellwert kann man auf Prozess- und Fehlerkosten hin optimieren, sodass ggf. Schwellwerte mit mehreren Nachkommastellen sinnvoll sind.
+* Mindestkonfidenz = ~93.45% - Die KI entscheidet, wenn sie es sicher kann und schleust Standardfälle an der Sachbearbeiterin vorbei, denn für Standardfälle wird eine hohe Konfidenz möglich sein. Den konkreten Schwellwert kann man auf Prozess- und Fehlerkosten hin optimieren, sodass ggf. Schwellwerte mit mehreren Nachkommastellen sinnvoll sind.
 * Mindestkonfidenz = 90.00% - Ein manuell gesetzter Wert, aus der Erfahrung der Prozessverantwortlichen heraus gesetzt. Der Wert liegt unter dem o.g. Optimum. So wird die Automatisierungsquote erhöht, eine höhere Fehlerquote nehmen wir in Kauf. Das könnte eine sinnvolle Konfiguration nach einem Schaden-Großereignis sein, bei dem die Abteilung schlicht überfordert ist.
 * Mindestkonfidenz = 0.00% - Die KI entscheidet immer autonom, auch wenn Unsicherheiten deutlich sind. Im allgemeinen ist das keine sinnvolle Konfiguration, es sei denn es gilt einen Geschäftsprozess pauschal ohne Mitarbeiter:innen zu betreiben (bspw. in einer Lockdown-Situation).
 Einspruch!
@@ -97,7 +97,7 @@ Die Anwendung von Machine-Learning-Modellen wäre sicher eine Nutzung, die Aufna
 
 ### Entscheidungsunterstützung - AI first
 
-Eine Prozess-Konstruktion mit Fokus auf Intervenierbarkeit ist die Entscheidungsunterstützung, bei der eine Machine-Learning-Komponente immer vor einer menschlichen Entscheidung aufgerufen wird. Sie gibt dann ihre Ergebnisse (inkl. Konfidenz-Einschätzung) als Unterstützung zur manuellen Entscheidung weiter. Dies ist besonders sinnvoll, zusätzlich ein Verfahren der erklärendes Verfahren zum Einsatz kommt, dass sog. lokale (also Einzelfall-bezogene) Erklärungen erzeugen kann.
+Eine Prozess-Konstruktion mit Fokus auf Intervenierbarkeit ist die Entscheidungsunterstützung, bei der eine Machine-Learning-Komponente immer vor einer menschlichen Entscheidung aufgerufen wird. Sie gibt dann ihre Ergebnisse (inkl. Konfidenz-Einschätzung) als Unterstützung zur manuellen Entscheidung weiter. Dies ist besonders sinnvoll, zusätzlich ein Verfahren der erklärbaren KI (XAI) zum Einsatz kommt, dass sog. lokale (also Einzelfall-bezogene) Erklärungen erzeugen kann.
 
 ![Decision Support - AI first](models/decision-support-ai-first.png "Decision Support - AI first")
 
@@ -116,9 +116,9 @@ Neben dem Einspruch ist eine nachträgliche Anfechtung denkbar - historische Ent
 
 ![GDPR Contest](models/gpdr-contest.png "GDPR Contest")
 
-Das Machine-Learning-Modell historisiert die Falldaten inkl. Entscheidung und der ML-Modell Version. Diese Informationen sind notwendig um einzelne Entscheidungen nachträglich am Modell zu wiederholen und systematisch zu analysieren. Wird ein Fall hinterfragt, dann liefert eine XAI-Analyse durch die Wiederholung dieses und potenziell vergleichbarer Fälle die Entscheidungswege, welche zum Ergebnis geführt haben. Der Einzelfall ist begründet und kann diskutiert und ggf. revidiert werden. Falsche Entscheidungswege werden transparent.
+Das Machine-Learning-Modell historisiert die Falldaten inkl. Entscheidung und der ML-Modell Version. Diese Informationen sind notwendig, um einzelne Entscheidungen nachträglich am Modell zu wiederholen und systematisch zu analysieren. Wird ein Fall hinterfragt, dann liefert eine XAI-Analyse durch die Wiederholung dieses und potenziell vergleichbarer Fälle die Entscheidungswege, welche zum Ergebnis geführt haben. Der Einzelfall ist begründet und kann diskutiert und ggf. revidiert werden. Falsche Entscheidungswege werden transparent.
 
-Über die ohnehin zu erwartende Protokollierung durch eine Prozess-Engine hinaus gilt: Revidierte Entscheidungen sind ein wichtiges Merkmal in den Daten. Der Datensatz wird korrigiert und als revidiert und korrigiert gekennzeichnet - um Fehler im ML Modell zu zu verstehen und zukünftig zu minimieren.
+Über die ohnehin zu erwartende Protokollierung durch eine Prozess-Engine hinaus gilt: Revidierte Entscheidungen sind ein wichtiges Merkmal in den Daten. Der Datensatz wird korrigiert und als revidiert und korrigiert gekennzeichnet - um Fehler im ML Modell zu  verstehen und zukünftig zu minimieren.
 
 :warning: Sobald personenbezogene Daten im Sinne der DSGVO im ML-Modell verarbeitet werden, ist dieses Muster verpflichtend (Vgl. Art 22 Abs. 3 DSGVO).
 
@@ -126,13 +126,13 @@ Das Machine-Learning-Modell historisiert die Falldaten inkl. Entscheidung und de
 
 ### Drift Detection
 
-Drift ist ein Fachbegriff der beschreibt, dass Daten veralten und dass somit auch die aus Daten abgeleiteten ML-Modelle veralten: Das erlernte Wissen im Modell und die Realität driften auseinander.
+Drift ist ein Fachbegriff, der beschreibt, dass Daten veralten und dass somit auch die aus Daten abgeleiteten ML-Modelle veralten: Das erlernte Wissen im Modell und die Realität driften auseinander.
 
 Zufällig bekommen hier Sachbearbeiter:innen Fälle zugeordnet. Die Automatisierungsquote ist frei wählbar, sollte aber im Allgemeinen nicht 100% betragen, damit es auch in Zukunft frische Trainingsdaten gibt. Ein Beispiel: Ein Unternehmen, dass Markt- oder Kundenverhalten über lange Zeit aufgezeichnet und für Machine Learning verwendet hat, muss fürchten, dass die Daten von vor der Corona-Zeit keine Aussagekraft mehr für die Zukunft haben - man sagt, das Modell hat eine Concept Drift erfahren.
 
 ![Drift Detection](models/drift-detection.png "Drift Detection")
 
-Um diese in weniger offensichtlichen Fällen überhaupt zu bemerken werden sporadisch manuelle Entscheidungen benötigt, die mit den KI-Entscheidungen verglichen werden.
+Um diese in weniger offensichtlichen Fällen zu bemerken werden sporadisch manuelle Entscheidungen benötigt, die mit den KI-Entscheidungen verglichen werden.
 Oft ändern sich nur Teile des Marktverhaltens - kleine Dinge wie bspw. neue Automarken machen es einem Machine Learning Model schwer aus der Vergangenheit zu lernen. Auch hier hilft eine kontinuierliche Versorgung mit aktuellen, manuellen Entscheidungen. 
 
 :bulb: Das Muster kann auch für einen Pilotbetrieb / Riskless Rollout verwendet werden, wenn der Automatisierungsgrad nahe 0% justiert. Wichtig ist noch, jeweils zu protokollieren, ob eine manuelle oder automatische Entscheidung getroffen wurde, um Auditierbarkeit sicherzustellen und zu verhindern, dass das Modell sich an eigenen unverifizierten Entscheidungen orientiert.
@@ -145,7 +145,7 @@ Machine Learning trifft Fehlentscheidungen, wie Menschen auch. Geringe Trainings
 
 ![Anomaly Detection First](models/anomaly-detection-first.png "Anomaly Detection First")
 
-Eine Anomalieerkennung bewertet jeden Fall zuerst mit einem Anomalie-Score. Beispielsweise sollte der erste KFZ Schaden eines neuen E-PKW Modells manuell bewertet werden, u.a. um daraus zu lernen.
+Eine Anomalieerkennung bewertet jeden Fall zuerst mit einem Anomalie-Score. Beispielsweise sollte der erste KFZ-Schaden eines neuen E-PKW Modells manuell bewertet werden, u.a. um daraus zu lernen.
 
 * Niedrige Anomalie-Scores sollten die Regel darstellen. Diese Routinen sind ausreichend in den Trainingsdaten vorhanden und können mit hoher Konfidenz vom ML-Modell entscheiden werden.  
 * Mittlere Anomalie-Scores sind selten. Prozessverantwortliche kontrollieren einen, der Konfidenz äquivalenten, Schwellwert. Wird dieser überschritten handelt es sich um eine Anomalie, die menschliche Aufmerksamkeit benötigt. Auf diese Weise werden nützliche Trainingsdaten erzeugt.
@@ -161,7 +161,7 @@ Anomalien könnte Sonderfälle identifizieren, welche wohlmöglich Chancen auf P
 
 Verschiedene Verfahren des Machine-Learning haben auch unterschiedliche Stärken und Schwäche. Zwei Beispiele dazu:
 
-* Entscheidungsbäume sind bspw. einfach nachzuvollziehen - das Overfitting-problem ist gut beherrschbar, komplexe Zusammenhänge in der jeweilige Domäne bleiben dagegen unbeachtet.
+* Entscheidungsbäume sind bspw. einfach nachzuvollziehen - das Overfitting-problem ist gut beherrschbar, komplexe Zusammenhänge in der jeweiligen Domäne bleiben dagegen unbeachtet.
 * Deep Learning ist schlecht nachzuvollziehen, lernt allerdings Zusammenhänge in tieferer Komplexität.
 
 Die Ensemble-Idee ist die Stärken von mehreren Verfahren zu kombinieren: Mehrere Modelle entscheiden den gleichen Fall - herrscht Einigkeit ist die Entscheidung klar. Uneinigkeit wird beobachtet und ebenfalls mit Machine-Learning-Mitteln überwacht - ein weiteres Modell entscheidet, welche Modelle in welchen Situationen gute Performance zeigen. 
