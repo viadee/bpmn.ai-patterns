@@ -1,15 +1,33 @@
 # bpmn.ai Process Patterns - KI orchestrieren
 
-Mit einem erfolgreichen KI-Proof-of-Concept fängt die Reise oft erst an. Zur Orchestrierung von KI-Services gibt es noch wenig. Werkzeugunterstützung und methodische Diskussionen umfassen oft nur noch die Bereitstellung von Pipelines (bspw. Kubeflow) und Web-Services in einer Cloud, die ein Machine Learning-Modell nutzbar machen… und dann?
+Mit einem erfolgreichen KI-Proof-of-Concept fängt die Reise oft erst an. Zur Orchestrierung von KI-Services gibt es noch wenig. Werkzeugunterstützung und methodische Diskussionen umfassen oft nur noch die Bereitstellung von Pipelines (bspw. [Kubeflow](https://www.kubeflow.org/)) und Web-Services in einer Cloud, die ein Machine Learning-Modell nutzbar machen… und dann?
 
-Unternehmen, die bereits eine Workflow-Engine einsetzen, haben ein gemachtes Nest für KI-Anwendungsfälle. Es gibt verschiedene Integrationsmuster, mit eigenen Vor- und Nachteilen, die sich gut als kleine BPMN-Prozesse verstehen lassen. Dies ist eine wichtige Perspektive, um Ansprüchen an Fairness und Transparenz beim KI-Einsatz gerecht zu werden.
+Unternehmen, die bereits eine Workflow-Engine (wie bspw. [Camunda](https://camunda.com) einsetzen, haben ein gemachtes Nest für KI-Anwendungsfälle. Es gibt verschiedene Integrationsmuster, mit eigenen Vor- und Nachteilen, die sich gut als kleine BPMN-Prozesse verstehen lassen. Dies ist eine wichtige Perspektive, um Ansprüchen an Fairness und Transparenz beim KI-Einsatz gerecht zu werden.
+
+- [bpmn.ai Process Patterns - KI orchestrieren](#bpmnai-process-patterns---ki-orchestrieren)
+  - [Gruppe 1: Getting started](#gruppe-1-getting-started)
+    - [Prozessdaten-Sammlung - nur gucken, nicht anfassen](#prozessdaten-sammlung---nur-gucken-nicht-anfassen)
+    - [DMN als minimale Laufzeitumgebung](#dmn-als-minimale-laufzeitumgebung)
+    - [Gesunder Maschinenverstand - Anomalie-Erkennung auf Prozess-Ergebnissen](#gesunder-maschinenverstand---anomalie-erkennung-auf-prozess-ergebnissen)
+  - [Gruppe 2: Intervenierbarkeit](#gruppe-2-intervenierbarkeit)
+    - [Steuerbarer Automatisierungsgrad](#steuerbarer-automatisierungsgrad)
+    - [Entscheidungsunterstützung - AI first](#entscheidungsunterstützung---ai-first)
+  - [Gruppe 3: Datenschutz](#gruppe-3-datenschutz)
+    - [Entscheidung argumentieren](#entscheidung-argumentieren)
+  - [Gruppe 4: Nachhaltigkeit](#gruppe-4-nachhaltigkeit)
+    - [Drift Detection](#drift-detection)
+  - [Gruppe 5: Multi-Model](#gruppe-5-multi-model)
+    - [Routine automatisieren - aus Chancen lernen](#routine-automatisieren---aus-chancen-lernen)
+    - [Ensemble](#ensemble)
+    - [Divide and Conquer - Prozess-Zuordnung](#divide-and-conquer---prozess-zuordnung)
+  - [Fazit](#fazit)
 
 Konvention: KI-Komponenten sind in den Prozess-Mustern in grün hervorgehoben.
 
 ## Gruppe 1: Getting started
 ### Prozessdaten-Sammlung - nur gucken, nicht anfassen
 
-Das erste und einfachste Muster enthält keine KI-Komponente, sondern nur einen Geschäftsprozess mit einer manuellen Aktivität.
+Das erste und einfachste Muster enthält keine KI-Komponente, sondern nur einen Geschäftsprozess mit einer manuellen Aktivität, deren Aufruf mit den relevanten Metadaten protokolliert wird.
 
 ![CollectOnly](models/collect-only.png "Collect only")
 
@@ -34,7 +52,7 @@ Der Lehrbuchansatz “Trefferquote maximieren” impliziert, dass alle Fehler di
 
 ### DMN als minimale Laufzeitumgebung
 
-Deep-Learning ist zwar modern und begeistert mit seinen Möglichkeiten, ist aber die aktuelle Ultima Ratio des Machine Learning: Aufwändig, datenhungrig, schlecht nachvollziehbar, nicht-deterministisch und ein Komplexitäts-Zuwachs im Betrieb. Dabei sind Einfachheit, Erklärbarkeit und Determinismus offensichtliche Design-Ziele - nach Commen Sense und auch explizit seitens der Regulatorik wie bspw. den Empfehlungen der DSK.
+Deep-Learning ist zwar modern und begeistert mit seinen Möglichkeiten, ist aber die aktuelle Ultima Ratio des Machine Learning: Aufwändig, datenhungrig, schlecht nachvollziehbar, nicht-deterministisch und ein Komplexitäts-Zuwachs im Betrieb. Dabei sind Einfachheit, Erklärbarkeit und Determinismus offensichtliche Design-Ziele - nach Commen Sense und auch explizit seitens der Regulatorik wie bspw. den [Empfehlungen der Datenschutzkonferenz](https://www.datenschutzkonferenz-online.de/media/en/20191106_positionspapier_kuenstliche_intelligenz.pdf) von 2019.
 
 ![DMN as runtime](models/dmn-as-runtime-environment.png "DMN as runtime")
 
@@ -172,6 +190,6 @@ Die Auftrennung dieser beiden Schritte ist strategisch sinnvoll, denn die Entity
 
 ## Fazit
 
-Künstliche Intelligenz unterstützt viele Herausforderungen modernder Prozessautomatisierung. Allein die Prozesskennzahl-Sammlung verbessert die Datenlage und gibt Auskunft über das Verhalten einzelner Teilprozesse. Prozessverantwortliche steuern per Konfidenzen den Automatisierungsgrad und behalten die Kontrolle über die Maschine. 
+Künstliche Intelligenz unterstützt viele Herausforderungen moderner Prozessautomatisierung. Allein die Prozesskennzahl-Sammlung verbessert die Datenlage und gibt Auskunft über das Verhalten einzelner Teilprozesse. Prozessverantwortliche steuern per Konfidenzen den Automatisierungsgrad und behalten die Kontrolle über die Maschine. 
 
 Eine gesunde Skepsis gegenüber KI-Integration wird begründetem Vertrauen weichen, wenn die Risiken durch Erklärbarkeit, Drift Detection und Anomalieerkennung adäquat adressiert werden. Unabhängig von den verwendeten Pattern bzw. der Art der KI Integration muss es eine Historisierung der KI Ergebnisse und der verwendeten Modelle geben, um sowohl den Datenschutz als auch die Qualität der künstlichen Intelligenz zu verargumentieren.
