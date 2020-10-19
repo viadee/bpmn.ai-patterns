@@ -1,12 +1,13 @@
-# bpmn.ai Process Patterns - KI orchestrieren
+# bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes
 
-Mit einem erfolgreichen KI-Proof-of-Concept fängt die Reise oft erst an. Zur Orchestrierung von KI-Services gibt es noch wenig. Werkzeugunterstützung und methodische Diskussionen umfassen oft nur noch die Bereitstellung von Pipelines (bspw. [Kubeflow](https://www.kubeflow.org/)) und Web-Services in einer Cloud, die ein Machine Learning-Modell nutzbar machen… und dann?
+The journey through an AI project often only begins with a successful proof of concept. There is still little consensus regarding the orchestration of AI services. Tool support and methodological discussions often culminate with the provision of machine learning pipelines (e.g. through [Kubeflow](https://www.kubeflow.org/)) and web services in the cloud. 
+From an architectural perspective, it is straightforward how to make a single machine learning model usable. But, how to integrate and combine them into business processes in a meaningful way?
 
-Unternehmen, die bereits eine Workflow-Engine (wie bspw. [Camunda](https://camunda.com) einsetzen, haben ein gemachtes Nest für KI-Anwendungsfälle. Es gibt verschiedene Integrationsmuster, mit eigenen Vor- und Nachteilen, die sich gut als kleine BPMN-Prozesse verstehen lassen. Dies ist eine wichtige Perspektive, um Ansprüchen an Fairness und Transparenz beim KI-Einsatz gerecht zu werden.
+Companies that already use a workflow engine (such as [Camunda](https://camunda.com) have a head start on AI use cases. There are different integration patterns, with their own advantages and disadvantages. The patterns can be easily understood as small BPMN processes. This is an important perspective to meet the demands of fairness and transparency in AI applications.
 
-- [bpmn.ai Process Patterns - KI orchestrieren](#bpmnai-process-patterns---ki-orchestrieren)
-  - [Gruppe 1: Getting started](#gruppe-1-getting-started)
-    - [Prozessdaten-Sammlung - nur gucken, nicht anfassen](#prozessdaten-sammlung---nur-gucken-nicht-anfassen)
+- [bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes](#bpmnai-process-patterns-to-orchestrate-your-ai-services-in-business-processes)
+  - [Group 1: Getting started](#group-1-getting-started)
+    - [Process data collection - just look, do not touch](#process-data-collection---just-look-do-not-touch)
     - [DMN als minimale Laufzeitumgebung](#dmn-als-minimale-laufzeitumgebung)
     - [Gesunder Maschinenverstand - Anomalie-Erkennung auf Prozess-Ergebnissen](#gesunder-maschinenverstand---anomalie-erkennung-auf-prozess-ergebnissen)
   - [Gruppe 2: Intervenierbarkeit](#gruppe-2-intervenierbarkeit)
@@ -22,23 +23,25 @@ Unternehmen, die bereits eine Workflow-Engine (wie bspw. [Camunda](https://camun
     - [Divide and Conquer - Prozess-Zuordnung](#divide-and-conquer---prozess-zuordnung)
   - [Fazit](#fazit)
 
-Konvention: KI-Komponenten sind in den Prozess-Mustern in grün hervorgehoben.
+*Convention*: AI components are highlighted in green in the process patterns.
 
-## Gruppe 1: Getting started
-### Prozessdaten-Sammlung - nur gucken, nicht anfassen
 
-Das erste und einfachste Muster enthält keine KI-Komponente, sondern nur einen Geschäftsprozess mit einer manuellen Aktivität, deren Aufruf mit den relevanten Metadaten protokolliert wird.
+## Group 1: Getting started
+### Process data collection - just look, do not touch
+
+The first and simplest pattern contains no AI component, but only a business process with a manual activity, whose call is logged with the relevant metadata and process variables included.
 
 ![CollectOnly](models/collect-only.png "Collect only")
 
-Auch dieses Muster leistet schon einen Beitrag zur Umsetzung einer KI-Strategie: Da es eine manuelle Aktivität unter Prozesskontrolle bringt, macht es die Protokolle der Prozess-Engine zugänglich für die Ableitung von steuerungsrelevanten Kennzahlen.
+This pattern already contributes to the implementation of an AI strategy: Since it brings a manual activity under process control, it allows you to derive insights from the process engine logs, that are highly useful to guide your AI projects in the future.
 
-* Wie oft wird diese Aktivität ausgeführt?
-* Wie groß ist ihr Anteil an der Laufzeit des übergeordneten Geschäftsprozesses?
-* Wie teuer sind welche Aktivitäten?
-* Gibt es systematische Zusammenhänge von Input und Output einzelner Aktivitäten, die sich in Prozessvariablen erkennen lassen, die auf Automatisierbarkeit hoffen lassen?
 
-Kennzahlen dieser Art sind wertvoll, um Chancen für KI-basierte Automatisierung identifizieren und priorisieren zu können. Auch als Teil der Zielfunktion vorgelagerter Machine-Learning-Prozesse können (sollten) sie dienen.
+* How often is this activity performed?
+* How large is its share of the runtime of the overall business process?
+* How expensive are which activities?
+* Are there systematic correlations between input and output of individual activities? May we hope to automate them?
+
+Not only can you use insights such as these to prioritize automisation efforts, you will also need to rely on them while implementing automated decisions with machine learning approaches: They become part of the *loss function*.
 
 Ein Beispiel dazu: Im Input-Management klassifiziert eine KI eingehende Geschäftsvorfälle und leitet diese an die zuständigen Prozesse weiter. Das Machine-Learning hierzu wird auf einer Historie von manuellen Klassifikationen lernen und versuchen, diese in gleicher Weise zu klassifizieren. Jedes Machine Learning braucht eine Ziel-Kennzahl, die es zu optimieren gilt. Die Lehrbuch-Herangehensweise für Klassifikationsprobleme dieser Art ist ein Art Trefferquote von richtigen zu falschen Zuordnungen zu optimieren. Das funktioniert zwar, verschenkt aber systematisch Einsparpotenziale - letztlich ist das Ziel unvollständig definiert. Wenn wir versuchen möchten teuere Prozesse zu vermeiden, muss dieses Ziel Teil der Ziel-Kennzahl werden, denn in einem Input-Management sind nicht alle Fehl-Klassifikationen gleich teuer.
 
@@ -48,7 +51,9 @@ Ein Beispiel dazu: Im Input-Management klassifiziert eine KI eingehende Geschäf
 
 Der Lehrbuchansatz “Trefferquote maximieren” impliziert, dass alle Fehler die gleichen Auswirkungen haben. Das reicht für einen proof-of-concept, aber nicht für einen produktiven, wirtschaftlichen Einsatz der KI-Komponenten. Um diese Gewichtungen machen zu können, braucht es eine Prozessdaten-Sammlung als Grundlage.
 
-:bulb: Kennzahlen für nicht-manuelle Aktivitäten wie bspw. externe Services stellt die Prozess-Engine auch im Protokoll zur Verfügung.
+:bulb: Kennzahlen für automatische Aktivitäten wie bspw. externe Services stellt die Prozess-Engine auch im Protokoll zur Verfügung.
+
+:warning: Avoid storing personal data in process variables, in order to comply with GDPR goals.
 
 ### DMN als minimale Laufzeitumgebung
 
