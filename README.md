@@ -43,13 +43,14 @@ This pattern already contributes to the implementation of an AI strategy: Since 
 
 Not only can you use insights such as these to prioritize automisation efforts, you will also need to rely on them while implementing automated decisions with machine learning approaches: They become part of the *loss function*.
 
-Ein Beispiel dazu: Im Input-Management klassifiziert eine KI eingehende Geschäftsvorfälle und leitet diese an die zuständigen Prozesse weiter. Das Machine-Learning hierzu wird auf einer Historie von manuellen Klassifikationen lernen und versuchen, diese in gleicher Weise zu klassifizieren. Jedes Machine Learning braucht eine Ziel-Kennzahl, die es zu optimieren gilt. Die Lehrbuch-Herangehensweise für Klassifikationsprobleme dieser Art ist ein Art Trefferquote von richtigen zu falschen Zuordnungen zu optimieren. Das funktioniert zwar, verschenkt aber systematisch Einsparpotenziale - letztlich ist das Ziel unvollständig definiert. Wenn wir versuchen möchten teuere Prozesse zu vermeiden, muss dieses Ziel Teil der Ziel-Kennzahl werden, denn in einem Input-Management sind nicht alle Fehl-Klassifikationen gleich teuer.
+An example of this: In input management an AI classifies incoming business transactions and forwards them to the responsible processes. The machine learning for this will learn on the history of manual classifications and try to classify them in the same way. Every machine learning needs a target key metric, which has to be optimized. The classic approach for classification problems of this kind is to optimize a kind of hit rate of correct to incorrect classifications. Although this works, it systematically wastes savings potential - in the end, the goal is incompletely defined. If we want to try to avoid expensive processes, this goal must become part of the target key metric, because in input management not all misclassifications are equally expensive.
 
-* Einen eingehenden Neukunden-Vertrag fälschlicherweise als Kündigung zu kategorisieren ist der größtmögliche Fehler.
-* Eine Kündigung als eingehenden Neukunden-Vertrag zu klassifizieren ist schade, hat aber kaum wirtschaftliche Konsequenzen.
-* Sind die wirtschaftlichen Konsequenzen von Fehlern schwer abzuschätzen, kann zumindest versucht werden günstige (oder günstig zu korrigierende) Prozesse zu bevorzugen.
+* To wrongly categorize an incoming new customer contract as termination is the biggest possible mistake.
+* Classifying a termination as an incoming new customer contract is a pity, but has hardly any economic consequences.
+* If the economic consequences of mistakes are difficult to estimate, one can at least try to prefer favorable (or favorably correctable) processes.
 
-Der Lehrbuchansatz “Trefferquote maximieren” impliziert, dass alle Fehler die gleichen Auswirkungen haben. Das reicht für einen proof-of-concept, aber nicht für einen produktiven, wirtschaftlichen Einsatz der KI-Komponenten. Um diese Gewichtungen machen zu können, braucht es eine Prozessdaten-Sammlung als Grundlage.
+The classic approach "maximize hit rate" implies that all errors have the same consequences. This is sufficient for a proof-of-concept, but not for productive, economic use of the AI components. To be able to make these weightings, a process data collection is needed as a basis.
+
 
 :bulb: Kennzahlen für automatische Aktivitäten wie bspw. externe Services stellt die Prozess-Engine auch im Protokoll zur Verfügung.
 
