@@ -143,10 +143,11 @@ Das Machine-Learning-Modell historisiert die Falldaten inkl. Entscheidung und de
 ## Gruppe 4: Nachhaltigkeit
 
 ### Drift Detection
+Most AI applications do not learn continously (and rightly so). This, however, raises the question: _"How often do I need to train my ML model with new data?"_
 
-Drift ist ein Fachbegriff, der beschreibt, dass Daten veralten und dass somit auch die aus Daten abgeleiteten ML-Modelle veralten: Das erlernte Wissen im Modell und die Realität driften auseinander.
+Drift (or Concept Drift) is a technical term that describes the fact that data becomes stale after some time. ML models derived from data therefore also become stale: The  knowledge baked into the model and reality drift apart. The following patterns helps to measure this effect.
 
-Zufällig bekommen hier Sachbearbeiter:innen Fälle zugeordnet. Die Automatisierungsquote ist frei wählbar, sollte aber im Allgemeinen nicht 100% betragen, damit es auch in Zukunft frische Trainingsdaten gibt. Ein Beispiel: Ein Unternehmen, dass Markt- oder Kundenverhalten über lange Zeit aufgezeichnet und für Machine Learning verwendet hat, muss fürchten, dass die Daten von vor der Corona-Zeit keine Aussagekraft mehr für die Zukunft haben - man sagt, das Modell hat eine Concept Drift erfahren.
+Clerks are randomly assigned cases here with a certain probability. This non-automation rate is freely selectable, but should generally not be 0%, so that fresh training data is available in the future. An example: A company that has recorded market or customer behavior over a long period of time and used it for ML based marketing automation must fear, that the data from before the corona pandemic is no longer meaningful - the model has experienced a (sudden) concept drift.
 
 ![Drift Detection](models/drift-detection.png "Drift Detection")
 
