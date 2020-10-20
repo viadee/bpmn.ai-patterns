@@ -8,7 +8,7 @@ Companies that already use a workflow engine (such as [Camunda](https://camunda.
 - [bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes](#bpmnai-process-patterns-to-orchestrate-your-ai-services-in-business-processes)
   - [Group 1: Getting started](#group-1-getting-started)
     - [Process data collection - just look, do not touch](#process-data-collection---just-look-do-not-touch)
-    - [DMN als minimale Laufzeitumgebung](#dmn-als-minimale-laufzeitumgebung)
+    - [Serviceless AI - DMN as minimal AI Runtime Environment](#serviceless-ai---dmn-as-minimal-ai-runtime-environment)
     - [Gesunder Maschinenverstand - Anomalie-Erkennung auf Prozess-Ergebnissen](#gesunder-maschinenverstand---anomalie-erkennung-auf-prozess-ergebnissen)
   - [Gruppe 2: Intervenierbarkeit](#gruppe-2-intervenierbarkeit)
     - [Steuerbarer Automatisierungsgrad](#steuerbarer-automatisierungsgrad)
@@ -51,20 +51,23 @@ An example of this: In input management an AI classifies incoming business trans
 
 The classic approach "maximize hit rate" implies that all errors have the same consequences. This is sufficient for a proof-of-concept, but not for productive, economic use of the AI components. To be able to make these weightings, a process data collection is needed as a basis.
 
-
-:bulb: Kennzahlen für automatische Aktivitäten wie bspw. externe Services stellt die Prozess-Engine auch im Protokoll zur Verfügung.
+:bulb: Especially external, outsourced tasks deserve this kind of attention.
 
 :warning: Avoid storing personal data in process variables, in order to comply with GDPR goals.
 
-### DMN als minimale Laufzeitumgebung
+### Serviceless AI - DMN as minimal AI Runtime Environment
 
-Deep-Learning ist zwar modern und begeistert mit seinen Möglichkeiten, ist aber die aktuelle Ultima Ratio des Machine Learning: Aufwändig, datenhungrig, schlecht nachvollziehbar, nicht-deterministisch und ein Komplexitäts-Zuwachs im Betrieb. Dabei sind Einfachheit, Erklärbarkeit und Determinismus offensichtliche Design-Ziele - nach Commen Sense und auch explizit seitens der Regulatorik wie bspw. den [Empfehlungen der Datenschutzkonferenz](https://www.datenschutzkonferenz-online.de/media/en/20191106_positionspapier_kuenstliche_intelligenz.pdf) von 2019.
+Deep learning is modern and inspires with its possibilities, but it is the current ultimate ratio of machine learning: costly, data-hungry, difficult to understand, non-deterministic and they imply an increase in complexity in IT operations: You will need to maintain a number of fast moving infrastucture technologies, probably both software and GPU-ressources.
+
+However, simplicity, explainability and determinism are obvious design goals - according to Commen Sense and also explicitly on the part of regulators such as the [Recommendations of the German Data Protection Conference (in german)](https://www.datenschutzkonferenz-online.de/media/en/20191106_positionspapier_kuenstliche_intelligenz.pdf) since 2019. For decision automation purposes, that rely on tabular data, there may be a shortcut route.
 
 ![DMN as runtime](models/dmn-as-runtime-environment.png "DMN as runtime")
 
-Ein Weg, um Einfachheit zu maximieren, wäre stattdessen ein Regel-basiertes oder Entscheidungsbaum-basiertes Verfahren zu verwenden. Oft lassen sich deren Ergebnisse mit wenigen Reibungsverlusten in DMN-Tabellen übersetzen, die dann nicht nur nachvollziehbar sind, sondern auch bei Bedarf gezielt veränderbar. Zusätzlich entfällt noch der Bedarf an spezifischer Betriebs-Infrastruktur, was die Konstruktion architektonisch besonders attraktiv macht - aber eben nicht zu einem technologisch getriebenen Leuchtturm-Projekt.
+One way to maximize simplicity would be to use a rule-based or decision-tree based approach instead. Often, their results can be translated into _DMN decision tables_ with little frictional loss. DMN tables are not only traceable, but can also be modified as needed. In addition, there is no need for specific operational infrastructure: Modern worflow engines can execute DMN out of the box. This pattern highly attractive from an architecture point of view and in order to collect low-hanging fruits in terms of business cases - it will not serve as lighthouse project and will probably not win the enthusiasm of data scientists.
 
-:bulb: Im Prinzip ist dies auch mit komplexeren Machine Learning-Verfahren möglich (bspw. mit dem Anchors-Verfahren). Dort wird aber mehr Präzision verloren gehen im Austausch für Transparenz und Änderbarkeit.
+:bulb: In principle, this is also possible with more complex machine learning methods (e.g. with the [Anchors](https://github.com/viadee/javaAnchorExplainer) method). 
+
+:warning: However, more precision will be lost in more complex cases in exchange for transparency and changeability. Also, there is an upper limit on what you can claim to be simple and explainable, be it in neural networks or large DMN tables. 
 
 ### Gesunder Maschinenverstand - Anomalie-Erkennung auf Prozess-Ergebnissen
 
