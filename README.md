@@ -104,17 +104,17 @@ The application of machine learning models would certainly be a use, and the inc
 
 :bulb: Consider the process data collection - Store maked decissions even it is not used in the process.
 
-### Entscheidungsunterstützung - AI first
+### Decision support - AI first
 
-Eine Prozess-Konstruktion mit Fokus auf Intervenierbarkeit ist die Entscheidungsunterstützung, bei der eine Machine-Learning-Komponente immer vor einer menschlichen Entscheidung aufgerufen wird. Sie gibt dann ihre Ergebnisse (inkl. Konfidenz-Einschätzung) als Unterstützung zur manuellen Entscheidung weiter. Dies ist besonders sinnvoll, zusätzlich ein Verfahren der erklärbaren KI (XAI) zum Einsatz kommt, dass sog. lokale (also Einzelfall-bezogene) Erklärungen erzeugen kann.
+Process design with a focus on Intervenability is the decision support where a machine learning component is always called before a human decision. It then passes on its results (including confidence estimation) as support for the manual decision. This is particularly useful when an additional method of explainable AI (XAI) is used, which can generate so-called local (i.e. case-related) explanations.
 
 ![Decision Support - AI first](models/decision-support-ai-first.png "Decision Support - AI first")
 
-:warning: Systeme dieser Art machen, trotz ihrer Invervenierbarkeit und dem vermeintlichen Fokus auf die menschliche Entscheidung eine ethische Betrachtung notwendig. Sachbearbeiter:innen werden sich im Zweifel für Abweichungen von der “KI-Vorgabe” rechtfertigen müssen. Das schafft einen Anreiz, dies nicht zu tun, wie bspw. beim Österreicher AMS-Entscheidungsmodell. Dies würde das Modell aus ethischer Sicht zu einer Voll-Automatik verkommen lassen (inkl. der dann zu stellenden Qualitäts-Ansprüche), solange nicht organisatorisch sichergestellt ist, dass die menschliche Entscheidung unabhängig gefällt werden wird.
+:warning: These kinds of systems make, despite their invincibility and the supposed focus on human decision making and ethical consideration necessary. Clerks will have to justify in case of doubt for deviations from the "AI specification". This creates an incentive not to do so, for example in the Austrian AMS decision model. From an ethical point of view, this would make the model degenerate to a fully automatic one (including the quality requirements to be met), as long as it is not organizationally ensured that the human decision will be made independently.
 
-Im besten Fall entsteht so ein Mensch-Maschine-4-Augen-Prinzip, dass das Gesamtniveau an Entscheidungsqualität und Konsistenz über mehrere Entscheidungsträger:innen hinweg verbessert und damit Fairness im Sinne einer Gleichbehandlung fördert.
+In the best case, a human-machine-four-eyes principle is created that improves the overall level of decision quality and consistency across several decision-makers and thus promotes fairness in the sense of equal treatment.
 
-:warning: Damit dies gelingt, ist Gleichbehandlung im Lerndatensatz die zwingende Voraussetzung. Auch hier kann das Österreicher AMS als negatives Beispiel dienen, da es die Vorurteile des Arbeitsmarktes nur mit abbildet.
+:warning: For this to succeed, equal treatment in the learning data set is a mandatory prerequisite. Also, the Austrian AMS can serve as a negative example, as it only reflects the prejudices of the labor market.
 
 
 ## Gruppe 3: Datenschutz
