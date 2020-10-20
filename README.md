@@ -69,18 +69,17 @@ One way to maximize simplicity would be to use a rule-based or decision-tree bas
 
 :warning: However, more precision will be lost in more complex cases in exchange for transparency and changeability. Also, there is an upper limit on what you can claim to be simple and explainable, be it in neural networks or large DMN tables. 
 
-### Gesunder Maschinenverstand - Anomalie-Erkennung auf Prozess-Ergebnissen
+### common sense - anomaly detection on process results
 
-Bei einer hohen Dunkelverarbeitungsquote, egal ob mit KI-Technologien oder ohne, kommt ein Kontrollproblem auf: Es fehlt der gesunde Menschenverstand, um auf das Ergebnis des Prozesses wie bspw. einen errechneten Tarif oder einen Vertrag noch einmal zu kontrollieren und diesen auf Plausibilität zu prüfen. Im Allgemeinen sollte das nicht notwendig sein, aber Fehler kommen immer vor und möglichst sollte die Kundin nicht die erste im Prozessverlauf sein, die einen Fehler überhaupt bemerken könnte.
+If the dark processing rate is high, whether with or without AI technologies, a control problem arises: There is a lack of common sense to check the result of the process, such as a calculated tariff or a contract, again and to check it for plausibility. In general, this should not be necessary, but errors always occur and if possible the customer should not be the first in the process to notice an error.
 
-Um diesen Sachverhalt zu adressieren kann ein KI-Verfahren der Anomalie-Erkennung als einer der letzten Prozess-Schritte zum Einsatz kommen und im Einzelfall ein Eskalations-Ereignis automatisch auslösen - eine manuelle Prüfung wird angefordert.
+To address this issue, an AI procedure of anomaly detection can be used as one of the last process steps and in individual cases automatically trigger an escalation event - a manual check is requested.
 
 ![Anomaly Detection last](models/anomaly-detection-last.png "Anomaly Detection last")
 
-Die KI-trifft hier keine eigene, fachliche Entscheidung, kann aber fachliche Entscheidungen anderer (Menschen und Systeme) aufhalten, sofern diese “seltsam” aussehen. Die Einführung ist damit einfacher zu argumentieren, birgt aber ggf. weniger Ersparnisse als Optimierungen. Grundlage der Anomalie-Erkennung ist, dass ein KI-Modell lernt, was Normalität in einem Geschäftsprozess oder seinen Ergebnissen ausmacht - oder eben verletzt. Das kann an offensichtlichen Dingen wie Tarifen oder Kosten festgemacht sein aber durchaus mehr Faktoren umfassen, als bei manueller Prüfung überschaubar wären. Optional könnten auch Aspekte des Prozess-Verlaufs Teil der Anomalie-Erkennung werden, um bspw. besonders langlaufende oder (im Vergleich zur erlernten Normalität) besonders oft zirkulierte Prozesse automatisch zu eskalieren.
+The AI does not make its own technical decision here, but it can stop technical decisions of others (people and systems) if they look "strange". The introduction is therefore easier to argue but may offer fewer savings than optimizations. The keynote of anomaly detection is that an AI model learns what constitutes - or even violates - normality in a business process or its results. This can be based on obvious things like tariffs or costs, but it can also include more factors than would be manageable with manual testing. Optionally, aspects of the course of the process could also become part of the anomaly detection, for example to automatically escalate processes that are particularly long-running or (compared to the learned normality) circulated processes that are particularly frequent.
 
-:warning: Achtung: Hier wird vorausgesetzt, dass es sich eine Normalität etabliert hat. Für einzelne Geschäftsprozesse kann diese Annahme falsch sein, bspw. für sehr neue Prozesse oder solche die sich gerade stark verändert haben.
-
+:warning: Attention: Here it is assumed that normality has been established. For some business processes this assumption can be wrong, e.g. for very new processes or processes that have just changed significantly.
 
 ## Gruppe 2: Intervenierbarkeit
 
