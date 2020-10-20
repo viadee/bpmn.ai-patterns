@@ -9,11 +9,12 @@ Companies that already use a workflow engine (such as [Camunda](https://camunda.
   - [Group 1: Getting started](#group-1-getting-started)
     - [Process data collection - just look, do not touch](#process-data-collection---just-look-do-not-touch)
     - [Serviceless AI - DMN as minimal AI Runtime Environment](#serviceless-ai---dmn-as-minimal-ai-runtime-environment)
-    - [Gesunder Maschinenverstand - Anomalie-Erkennung auf Prozess-Ergebnissen](#gesunder-maschinenverstand---anomalie-erkennung-auf-prozess-ergebnissen)
-  - [Gruppe 2: Intervenierbarkeit](#gruppe-2-intervenierbarkeit)
-    - [Steuerbarer Automatisierungsgrad](#steuerbarer-automatisierungsgrad)
-    - [Entscheidungsunterstützung - AI first](#entscheidungsunterstützung---ai-first)
+    - [common sense - anomaly detection on process results](#common-sense---anomaly-detection-on-process-results)
+  - [Group 2: Intervenability](#group-2-intervenability)
+    - [Controllable degree of automation](#controllable-degree-of-automation)
+    - [Decision support - AI first](#decision-support---ai-first)
   - [Gruppe 3: Datenschutz](#gruppe-3-datenschutz)
+    - [GDPR Consent](#gdpr-consent)
     - [Entscheidung argumentieren](#entscheidung-argumentieren)
   - [Gruppe 4: Nachhaltigkeit](#gruppe-4-nachhaltigkeit)
     - [Drift Detection](#drift-detection)
@@ -65,7 +66,7 @@ However, simplicity, explainability and determinism are obvious design goals - a
 
 One way to maximize simplicity would be to use a rule-based or decision-tree based approach instead. Often, their results can be translated into _DMN decision tables_ with little frictional loss. DMN tables are not only traceable, but can also be modified as needed. In addition, there is no need for specific operational infrastructure: Modern worflow engines can execute DMN out of the box. This pattern highly attractive from an architecture point of view and in order to collect low-hanging fruits in terms of business cases - it will not serve as lighthouse project and will probably not win the enthusiasm of data scientists.
 
-:bulb: In principle, this is also possible with more complex machine learning methods (e.g. with the [Anchors](https://github.com/viadee/javaAnchorExplainer) method). 
+:bulb: In principle, this is also possible with more complex machine learning methods (e.g. through the [Anchors](https://github.com/viadee/javaAnchorExplainer) approach to derive rules from ML models). 
 
 :warning: However, more precision will be lost in more complex cases in exchange for transparency and changeability. Also, there is an upper limit on what you can claim to be simple and explainable, be it in neural networks or large DMN tables. 
 
@@ -85,24 +86,19 @@ The AI does not make its own technical decision here, but it can stop technical 
 
 ### Controllable degree of automation
 
-The use of process engines is an investment in flexibility - Changes can be made in a coordinated manner without the need for complex release processes. In this way, an XOR gateway can be used to control automation levels.
+The use of process engines is an investment in flexibility - changes can be made in a coordinated manner without the need for complex release processes. In this way, an XOR gateway can be used to control automation levels.
 
 ![Controlled Confidence](models/controlled-confidence.png "Controlled Confidence")
 
-An AI component is always the first to be used and makes a classification decision such as "Does this insurance claim have to be examined by an expert?" Besides the decision itself, the AI component indicates how confident it is with its own decision (Confidence) *TODO: Notwendigkeit einer soppelten Erwähnung: confident & Confidence.* This is usually given in the value range 0.0 to 1.0, where 1.0 corresponds to a 100% certainty, which is hardly achievable. Depending on this confidence value, we branch off to the processing or bypass it as needed:
+Consider an AI component for a classification decision such as _"Does this insurance claim have to be examined by an expert?"_. Besides the decision itself, the AI component indicates how confident it is with its own decision (Confidence). This is usually given in the value range 0.0 to 1.0, where 1.0 corresponds to a 100% certainty, which is hardly achievable. 
+Depending on this confidence value, we branch off to a manual processing or bypass it as needed:
 
 * Minimum confidence = 100% - this would be equivalent to a test or pilot operation. The AI component operates live on the real data, but will in fact never make a decision autonomously because the 100% threshold is never reached. Even human clerks would have a residual uncertainty, but do not quantify it.
 * Minimum confidence = ~93.45% - The AI decides if it can do it safely and smuggles standard cases past the clerk because for standard cases high confidence will be possible. The concrete threshold value can be optimized with regard to process and error costs, so that threshold values with several decimal places may be useful.
 * Minimum confidence = 90.00% - A manually set value, based on the experience of those responsible for the process. The value is below the above-mentioned optimum. This increases the automation rate, we accept a higher error rate. This could be a useful configuration after a major incident, where the department is simply overwhelmed.
 * Minimum confidence = 0.00% - The AI always decides autonomously, even if uncertainties are clear. In general, this is not a reasonable configuration, unless a business process is to be operated without employees (e.g. in a lockdown situation). Objection!
 
-According to GPDR Art. 22 (Lawfulness of automated processing) para. 1 there is a right of opposition or consent of individuals may be necessary to process their data for specific purposes - among other reasons for the lawfulness of processing, this should be the normal case.
-
-The application of machine learning models would certainly be a use, and the inclusion in the training data stock would certainly be one too. If a customer objects to this use, a "plan B" in the business process is needed, for which ML Serving tools often do not feel responsible.
-
-:bulb: This can be implemented at the processor orchestration level of the IT architecture in a similar way to how VIP business transactions are handled in service companies, for example.
-
-:warning: Note group 1: process data collection - automated decisions should be saved for later review.
+:warning: Note group 1: process data collection - automated decisions should be saved for later review, esp. if they have been overruled by manual decisions.
 
 ### Decision support - AI first
 
@@ -118,6 +114,16 @@ In the best case, a human-machine-four-eyes principle is created that improves t
 
 
 ## Gruppe 3: Datenschutz
+
+### GDPR Consent
+
+According to GPDR Art. 22 (Lawfulness of automated processing) para. 1 there is a right of opposition or consent of individuals may be necessary to process their data for specific purposes - among other reasons for the lawfulness of processing, this should be the normal case.
+
+![GDPR Consent](models/gdpr-consent.png "GDPR Consent")
+
+The application of machine learning models would certainly be considered as _use_, and the inclusion of one's data in the training data stock would certainly be _use_ too. If a customer objects to this use, a "plan B" in the business process is needed, for which ML Serving tools often do not feel responsible.
+
+:bulb: This can be implemented at the processor orchestration level of the IT architecture in a similar way to how VIP business transactions are handled in service companies, for example.
 
 ### Entscheidung argumentieren
 
