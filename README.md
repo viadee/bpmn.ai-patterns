@@ -9,10 +9,10 @@ Companies that already use a workflow engine (such as [Camunda](https://camunda.
   - [Group 1: Getting started](#group-1-getting-started)
     - [Process data collection - just look, do not touch](#process-data-collection---just-look-do-not-touch)
     - [Serviceless AI - DMN as minimal AI Runtime Environment](#serviceless-ai---dmn-as-minimal-ai-runtime-environment)
-    - [common sense - anomaly detection on process results](#common-sense---anomaly-detection-on-process-results)
+    - [Digital Common Sense - Anomaly Detection on Process Results](#digital-common-sense---anomaly-detection-on-process-results)
   - [Group 2: Intervenability](#group-2-intervenability)
-    - [Controllable degree of automation](#controllable-degree-of-automation)
-    - [Decision support - AI first](#decision-support---ai-first)
+    - [Controllable Degree of Automation](#controllable-degree-of-automation)
+    - [Decision Support - AI First](#decision-support---ai-first)
   - [Gruppe 3: Datenschutz](#gruppe-3-datenschutz)
     - [GDPR Consent](#gdpr-consent)
     - [Entscheidung argumentieren](#entscheidung-argumentieren)
@@ -70,7 +70,7 @@ One way to maximize simplicity would be to use a rule-based or decision-tree bas
 
 :warning: However, more precision will be lost in more complex cases in exchange for transparency and changeability. Also, there is an upper limit on what you can claim to be simple and explainable, be it in neural networks or large DMN tables. 
 
-### common sense - anomaly detection on process results
+### Digital Common Sense - Anomaly Detection on Process Results
 
 If the dark processing rate is high, whether with or without AI technologies, a control problem arises: There is a lack of common sense to check the result of the process, such as a calculated tariff or a contract, again and to check it for plausibility. In general, this should not be necessary, but errors always occur and if possible the customer should not be the first in the process to notice an error.
 
@@ -80,11 +80,14 @@ To address this issue, an AI procedure of anomaly detection can be used as one o
 
 The AI does not make its own technical decision here, but it can stop technical decisions of others (people and systems) if they look "strange". The introduction is therefore easier to argue but may offer fewer savings than optimizations. The keynote of anomaly detection is that an AI model learns what constitutes - or even violates - normality in a business process or its results. This can be based on obvious things like tariffs or costs, but it can also include more factors than would be manageable with manual testing. Optionally, aspects of the course of the process could also become part of the anomaly detection, for example to automatically escalate processes that are particularly long-running or (compared to the learned normality) circulated processes that are particularly frequent.
 
-:warning: Attention: Here it is assumed that normality has been established. For some business processes this assumption can be wrong, e.g. for very new processes or processes that have just changed significantly.
+:warning: Attention: Expect false alarms. This pattern assumes that normality has been established in your process. For some business processes this assumption can be wrong.
+
+* Very new processes with less than a few hundred process instances will not have produced enough data to allow the algorithm an adequate view of what _usually happens_.
+* If this amount of data is gathered, the algorithm can point out _unusual_ data points and bring them to attention. This will also regularly happen after software releases, whenever they influece the data flowing through your processes. E.g. if you change your pricing scheme in a software release the first prices generated will likely look _unusual_ to the algorithm, until it is retrained on the new data points and we gathered enough of them, to consider them a part of the new normality.
 
 ## Group 2: Intervenability
 
-### Controllable degree of automation
+### Controllable Degree of Automation
 
 The use of process engines is an investment in flexibility - changes can be made in a coordinated manner without the need for complex release processes. In this way, an XOR gateway can be used to control automation levels.
 
@@ -100,7 +103,7 @@ Depending on this confidence value, we branch off to a manual processing or bypa
 
 :warning: Note group 1: process data collection - automated decisions should be saved for later review, esp. if they have been overruled by manual decisions.
 
-### Decision support - AI first
+### Decision Support - AI First
 
 Process design with a focus on Intervenability is the decision support where a machine learning component is always called before a human decision. It then passes on its results (including confidence estimation) as support for the manual decision. This is particularly useful when an additional method of explainable AI (XAI) is used, which can generate so-called local (i.e. case-related) explanations.
 
