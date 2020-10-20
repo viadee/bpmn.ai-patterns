@@ -1,25 +1,25 @@
 # bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes
 
 The journey through an AI project often only begins with a successful proof of concept. There is still little consensus regarding the orchestration of AI services. Tool support and methodological discussions often culminate with the provision of machine learning pipelines (e.g. through [Kubeflow](https://www.kubeflow.org/)) and web services in the cloud. 
-From an architectural perspective, it is straightforward how to make a single machine learning model usable. But, how to integrate and combine them into business processes in a meaningful way?
+From an architectural perspective, it is straightforward how to make a single machine learning model usable and Cloud providers such as [Azure ML Services](https://azure.microsoft.com/de-de/services/machine-learning/) claim this to be an end-to-end solution to Machine Learning per se. But, how to integrate and combine them into business processes in a meaningful way?
 
 Companies that already use a workflow engine (such as [Camunda](https://camunda.com) have a head start on AI use cases. There are different integration patterns, with their own advantages and disadvantages. The patterns can be easily understood as small BPMN processes. This is an important perspective to meet the demands of fairness and transparency in AI applications.
 
 - [bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes](#bpmnai-process-patterns-to-orchestrate-your-ai-services-in-business-processes)
   - [Group 1: Getting started](#group-1-getting-started)
     - [Process data collection - just look, do not touch](#process-data-collection---just-look-do-not-touch)
-    - [Serviceless AI - DMN as minimal AI Runtime Environment](#serviceless-ai---dmn-as-minimal-ai-runtime-environment)
+    - [Serviceless AI - DMN as Minimal AI Runtime Environment](#serviceless-ai---dmn-as-minimal-ai-runtime-environment)
     - [Digital Common Sense - Anomaly Detection on Process Results](#digital-common-sense---anomaly-detection-on-process-results)
   - [Group 2: Intervenability](#group-2-intervenability)
     - [Controllable Degree of Automation](#controllable-degree-of-automation)
     - [Decision Support - AI First](#decision-support---ai-first)
-  - [Gruppe 3: Datenschutz](#gruppe-3-datenschutz)
+  - [Group 3: Data protection and Compliance](#group-3-data-protection-and-compliance)
     - [GDPR Consent](#gdpr-consent)
     - [Entscheidung argumentieren](#entscheidung-argumentieren)
-  - [Gruppe 4: Nachhaltigkeit](#gruppe-4-nachhaltigkeit)
+  - [Group 4: Sustainability](#group-4-sustainability)
     - [Drift Detection](#drift-detection)
-  - [Gruppe 5: Multi-Model](#gruppe-5-multi-model)
-    - [Routine automatisieren - aus Chancen lernen](#routine-automatisieren---aus-chancen-lernen)
+  - [Group 5: Multi-Model Patterns](#group-5-multi-model-patterns)
+    - [Anomaly Decision Safeguard](#anomaly-decision-safeguard)
     - [Ensemble](#ensemble)
     - [Divide and Conquer - Prozess-Zuordnung](#divide-and-conquer---prozess-zuordnung)
   - [Fazit](#fazit)
@@ -56,7 +56,7 @@ The classic approach "maximize hit rate" implies that all errors have the same c
 
 :warning: Avoid storing personal data in process variables, in order to comply with GDPR goals.
 
-### Serviceless AI - DMN as minimal AI Runtime Environment
+### Serviceless AI - DMN as Minimal AI Runtime Environment
 
 Deep learning is modern and inspires with its possibilities, but it is the current ultimate ratio of machine learning: costly, data-hungry, difficult to understand, non-deterministic and they imply an increase in complexity in IT operations: You will need to maintain a number of fast moving infrastucture technologies, probably both software and GPU-ressources.
 
@@ -116,7 +116,7 @@ In the best case, a human-machine-four-eyes principle is created that improves t
 :warning: For this to succeed, equal treatment in the learning data set is a mandatory prerequisite. Also, the Austrian AMS can serve as a negative example, as it only reflects the prejudices of the labor market.
 
 
-## Gruppe 3: Datenschutz
+## Group 3: Data protection and Compliance
 
 ### GDPR Consent
 
@@ -124,7 +124,7 @@ According to GPDR Art. 22 (Lawfulness of automated processing) para. 1 there is 
 
 ![GDPR Consent](models/gdpr-consent.png "GDPR Consent")
 
-The application of machine learning models would certainly be considered as _use_, and the inclusion of one's data in the training data stock would certainly be _use_ too. If a customer objects to this use, a "plan B" in the business process is needed, for which ML Serving tools often do not feel responsible.
+The application of machine learning models would certainly be considered to be _use_ (in the sense of the GDPR), and the inclusion of one's data in the training data stock would certainly be _use_ too. If a customer objects to this use, a "plan B" in the business process is needed, for which ML Serving tools often do not feel responsible.
 
 :bulb: This can be implemented at the processor orchestration level of the IT architecture in a similar way to how VIP business transactions are handled in service companies, for example.
 
@@ -140,7 +140,7 @@ Das Machine-Learning-Modell historisiert die Falldaten inkl. Entscheidung und de
 
 :warning: Sobald personenbezogene Daten im Sinne der DSGVO im ML-Modell verarbeitet werden, ist dieses Muster verpflichtend (Vgl. Art 22 Abs. 3 DSGVO).
 
-## Gruppe 4: Nachhaltigkeit
+## Group 4: Sustainability
 
 ### Drift Detection
 Most AI applications do not learn continously (and rightly so). This, however, raises the question: _"How often do I need to train my ML model with new data?"_
@@ -151,20 +151,24 @@ Clerks are randomly assigned cases here with a certain probability. This non-aut
 
 ![Drift Detection](models/drift-detection.png "Drift Detection")
 
-Um diese in weniger offensichtlichen Fällen zu bemerken werden sporadisch manuelle Entscheidungen benötigt, die mit den KI-Entscheidungen verglichen werden.
-Oft ändern sich nur Teile des Marktverhaltens - kleine Dinge wie bspw. neue Automarken machen es einem Machine Learning Model schwer aus der Vergangenheit zu lernen. Auch hier hilft eine kontinuierliche Versorgung mit aktuellen, manuellen Entscheidungen. 
+In order to notice these drifts in less obvious cases, manual decisions are sporadically required. They create a reference.
+Often only parts of the market behavior change - small things like new car brands make it difficult for a machine learning model to generalize rules from the past into the future. A continuous supply of up-to-date, manual decisions helps here as well. 
 
-:bulb: Das Muster kann auch für einen Pilotbetrieb / Riskless Rollout verwendet werden, wenn der Automatisierungsgrad nahe 0% justiert. Wichtig ist noch, jeweils zu protokollieren, ob eine manuelle oder automatische Entscheidung getroffen wurde, um Auditierbarkeit sicherzustellen und zu verhindern, dass das Modell sich an eigenen unverifizierten Entscheidungen orientiert.
+:bulb: The pattern can also be used as a feature toggle for a pilot, i.e. a riskless rollout, if the degree of automation adjusts close to 0%. 
 
-## Gruppe 5: Multi-Model
+:warning: It is important to log for each case whether a manual or an automatic decision has been made, in order to ensure auditability and to prevent the model from following its own unverified decisions in later training rounds.
 
-### Routine automatisieren - aus Chancen lernen
+## Group 5: Multi-Model Patterns
 
-Machine Learning trifft Fehlentscheidungen, wie Menschen auch. Geringe Trainingsdaten für seltene oder Sonderfälle sind hierfür hauptverantwortlich. Durch Kombination verschiedener ML Verfahren begegnen wir diesem Risiko, indem Seltenheiten - Anomalien - identifiziert und zur Sachbearbeiter:in gesteuert werden.
+### Anomaly Decision Safeguard
+
+Machine learning models make wrong decisions, just like humans do. Sometimes seemingly random effects put an upper bound to predictions - customer churn can be reasonably estimated, but never really predicted for individual customers. Low training data for rare or special cases are often responsible for estimations that turn out to be wrong later. 
+
+By combining two ML procedures we mitigate this risk by identifying rarities - anomalies - and steering them to the person in charge. It is safe to assume, that a machine learning model will not perform on these cases anyway, since individual cases can be strange in all kinds of ways. The underlying reasoning of analogy as referring to similar cases from the past is likely to break down when there are no reasonably similar cases. This leads to the following pattern:
 
 ![Anomaly Detection First](models/anomaly-detection-first.png "Anomaly Detection First")
 
-Eine Anomalieerkennung bewertet jeden Fall zuerst mit einem Anomalie-Score. Beispielsweise sollte der erste KFZ-Schaden eines neuen E-PKW Modells manuell bewertet werden, u.a. um daraus zu lernen.
+An _anomaly detection_ evaluates each case first with an anomaly score. For example in an insurance claims process, the first car damage reported for a new electric car model should of course be evaluated manually as well as for example unusually costly repairs on sports cars are. 
 
 * Niedrige Anomalie-Scores sollten die Regel darstellen. Diese Routinen sind ausreichend in den Trainingsdaten vorhanden und können mit hoher Konfidenz vom ML-Modell entscheiden werden.  
 * Mittlere Anomalie-Scores sind selten. Prozessverantwortliche kontrollieren einen, der Konfidenz äquivalenten, Schwellwert. Wird dieser überschritten handelt es sich um eine Anomalie, die menschliche Aufmerksamkeit benötigt. Auf diese Weise werden nützliche Trainingsdaten erzeugt.
