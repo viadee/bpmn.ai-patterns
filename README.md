@@ -102,7 +102,7 @@ The application of machine learning models would certainly be a use, and the inc
 
 :bulb: This can be implemented at the processor orchestration level of the IT architecture in a similar way to how VIP business transactions are handled in service companies, for example.
 
-:bulb: Consider the process data collection - Store maked decissions even it is not used in the process.
+:warning: Note group 1: process data collection - automated decisions should be saved for later review.
 
 ### Decision support - AI first
 
