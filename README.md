@@ -211,8 +211,8 @@ The separation of these two steps makes strategic sense because Entity Extractio
 
 :warning: The target metric used for machine learning should not only be optimized for the "hit rate" but should also take individual error costs into account. A wrong classification of a contract application as termination can be expensive.
 
-## Fazit
+## Summary
 
-Künstliche Intelligenz unterstützt viele Herausforderungen moderner Prozessautomatisierung. Allein die Prozesskennzahl-Sammlung verbessert die Datenlage und gibt Auskunft über das Verhalten einzelner Teilprozesse. Prozessverantwortliche steuern per Konfidenzen den Automatisierungsgrad und behalten die Kontrolle über die Maschine. 
+Machine Learning supports many challenges of modern process automation. The collection of process key metrics alone improves the data situation and provides information about the behavior of individual sub-processes. Process owners use confidence to control the degree of automation and maintain control over the machine. 
 
-Eine gesunde Skepsis gegenüber KI-Integration wird begründetem Vertrauen weichen, wenn die Risiken durch Erklärbarkeit, Drift Detection und Anomalieerkennung adäquat adressiert werden. Unabhängig von den verwendeten Pattern bzw. der Art der KI Integration muss es eine Historisierung der KI Ergebnisse und der verwendeten Modelle geben, um sowohl den Datenschutz als auch die Qualität der künstlichen Intelligenz zu verargumentieren.
+A healthy skepticism about ML integration will give way to justified trust if risks are adequately addressed through explainability, drift detection, and anomaly detection. Regardless of the patterns or the type of ML model used, it is recommended or if personal data is involved required to safe ML decisions. A history of ML results and used models help to argue for both privacy and the quality of automated decisions.
