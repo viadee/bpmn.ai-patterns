@@ -197,19 +197,19 @@ Alternatively, decisions can also be made democratically, if necessary with huma
 
 ### Divide and Conquer - Process Assignment
 
-Oft gilt es nicht nur einen Prozess zu automatisieren, sondern mehrere. Oft können Prozesse über mehrere Eingangskanäle durch Geschäftsvorfälle ausgelöst werden. Hier greift das Divide-and-Conquer Prinzip mit mehreren ML-Modellen, die Teile einer Problemstellung lösen.
+Often it is not just one process that needs to be automated, but several. Often processes can be triggered by business transactions via several input channels. This is where the Divide-and-Conquer principle comes into play with several ML models that solve parts of a problem.
 
 ![Process Choice](models/process-choice.png "Process Choice")
 
-Ein erster Verarbeitungsschritt extrahiert aus den eingehenden Dokumenten, E-Mails oder bspw. Chat-Nachrichten alle Entitäten, d.h. alle identifizierbaren Aspekte, wie sie in der Sachbearbeitung vielleicht in ein Formular eingetragen würden: Kunden-Namen, Mail-Adressen, Rechnungsnummern, etc. oder auch abstraktere Einschätzungen wie bspw. eine Sentiment-Analyse um die ausgedrückte Stimmung zu erfassen.
+A first processing step extracts from incoming documents, e-mails, or chat messages all entities, i.e. all identifiable aspects, as they might be entered into a form in the processing: Customer names, e-mail addresses, invoice numbers, etc. or more abstract assessments such as a sentiment analysis to identify and quantify affective states and subjective information, especially the expressed mood.
 
-Auf diese Weise entstehen aus einem Strom eher schwach strukturierter Daten einer mit einzelnen bekannten Feldern. Diese lassen sich in einem zweiten ML-Schritt zur Klassifikation des am besten geeigneten Folgeprozesses nutzen, der die Daten verarbeiten kann.
+In this way, a stream of rather weakly structured data turns into one with single known fields. These can be used in a second ML step to classify the most suitable subsequent process that can process the data.
 
-Die Auftrennung dieser beiden Schritte ist strategisch sinnvoll, denn die Entity Extraction entwickelt sich zu einem Standard-Produkt, für das vortrainierte Modelle oder Cloud-Services eingesetzt werden können. Für die Prozessklassifikation braucht es eigene Lerndaten zu den eigenen Prozessen.
+The separation of these two steps makes strategic sense because Entity Extraction is becoming a standard product for which pre-trained models or cloud services can be used. Process classification requires separate learning data for their own processes.
 
-:warning: Es kann Vorfälle geben, die in keinen Prozess gehören oder mehrere Anliegen enthalten.
+:warning: There may be incidents that do not belong in any process or contain multiple concerns.
 
-:warning: Die für das Machine Learning verwendete Zielmetrik sollte nicht nur auf die “Trefferquote” optimieren, sondern individuelle Fehlerkosten berücksichtigen. Eine Falschklassifikation als Kündigung kann teuer werden.
+:warning: The target metric used for machine learning should not only be optimized for the "hit rate" but should also take individual error costs into account. A wrong classification of a contract application as termination can be expensive.
 
 ## Fazit
 
