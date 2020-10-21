@@ -3,9 +3,9 @@
 The journey through an AI project often only begins with a successful proof of concept. There is still little consensus regarding the orchestration of AI services. Tool support and methodological discussions often culminate with the provision of machine learning pipelines (e.g. through [Kubeflow](https://www.kubeflow.org/)) and web services in the cloud. 
 From an architectural perspective, it is straightforward how to make a single machine learning model usable and Cloud providers such as [Azure ML Services](https://azure.microsoft.com/de-de/services/machine-learning/) claim this to be an end-to-end solution to Machine Learning per se. But, how to integrate and combine them into business processes in a meaningful way?
 
-Companies that already use a workflow engine (such as [Camunda](https://camunda.com) have a head start on AI use cases. There are different integration patterns, with their own advantages and disadvantages. The patterns can be easily understood as small BPMN processes. This is an important perspective to meet the demands of fairness and transparency in AI applications.
+Companies that already use a workflow engine (such as [Camunda](https://camunda.com)) have a head start on AI use cases. There are different integration patterns, with their own advantages and disadvantages. The patterns can be easily understood as small BPMN processes. This is an important perspective to meet the demands of fairness and transparency in AI applications.
 
-In our projects we found the following list of patterns useful. On one hand, they serve as a means of communication between Data Scientists and Process Owners or Process Automation Specialists. On the other hand, they can be used as a checklist of ideas to consider, when you bring AI-based decision making into production.
+In our projects, we found the following list of patterns useful. On the one hand, they serve as a means of communication between Data Scientists and Process Owners or Process Automation Specialists. On the other hand, they can be used as a checklist of ideas to consider when you bring AI-based decision making into production.
 
 - [bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes](#bpmnai-process-patterns-to-orchestrate-your-ai-services-in-business-processes)
   - [Group 1: Getting started](#group-1-getting-started)
@@ -32,19 +32,20 @@ In our projects we found the following list of patterns useful. On one hand, the
 ## Group 1: Getting started
 ### Process data collection - just look, do not touch
 
-The first and simplest pattern contains no AI component, but only a business process with a manual activity, whose call is logged with the relevant metadata and process variables included.
+The first and simplest pattern does not contain an AI component, but only comprises a business process with a manual activity, whose call is logged with the relevant metadata and process variables included.
 
 ![CollectOnly](models/collect-only.png "Collect only")
 
-This pattern already contributes to the implementation of an AI strategy: Since it brings a manual activity under process control, it allows you to derive insights from the process engine logs, that are highly useful to guide your AI projects in the future.
+This pattern already contributes to the implementation of an AI strategy: Since it brings a manual activity under process control, it allows you to derive insights from the process engine logs. Thus, they are highly useful to guide your AI projects in the future.
 
+Relevant questions are:
 
 * How often is this activity performed?
 * How large is its share of the runtime of the overall business process?
 * How expensive are which activities?
 * Are there systematic correlations between input and output of individual activities? May we hope to automate them?
 
-Not only can you use insights such as these to prioritize automisation efforts, you will also need to rely on them while implementing automated decisions with machine learning approaches: They become part of the *loss function*.
+Not only can you use such insights to prioritize automisation efforts, but you will also need to rely on them while implementing automated decisions with machine learning approaches: They become part of the *loss function*.
 
 An example of this: In input management an AI classifies incoming business transactions and forwards them to the responsible processes. The machine learning for this will learn on the history of manual classifications and try to classify them in the same way. Every machine learning needs a target key metric, which has to be optimized. The classic approach for classification problems of this kind is to optimize a kind of hit rate of correct to incorrect classifications. Although this works, it systematically wastes savings potential - in the end, the goal is incompletely defined. If we want to try to avoid expensive processes, this goal must become part of the target key metric, because in input management not all misclassifications are equally expensive.
 
