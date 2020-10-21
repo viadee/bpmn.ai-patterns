@@ -219,8 +219,6 @@ The separation of these two steps makes strategic sense because Entity Extractio
 
 Machine Learning supports many challenges of modern process automation. The collection of process key metrics alone improves the data situation and provides information about the behavior of individual sub-processes. Process owners require confidence thresholds to control the degree of automation. 
 
-You can manifest your healthy skepticism about ML decision making into checks and balances through explainability, drift detection, and anomaly detection. A history of ML results and used models help to argue for accountability and closes feedback loop to maintain the quality of automated decisions in the long term.
-
-
+You can manifest your healthy skepticism about ML decision making into checks and balances through explainability, drift detection, and anomaly detection. A history of ML results and used models helps to argue for accountability and closes feedback loop to maintain the quality of automated decisions in the long term.
 
 :soon: There are more patterns in the backlog, which we plan to include in the future. This list of patterns has a permanent open source home on [Github](https://github.com/viadee/bpmn.ai-patterns). We hope that you find this high level perspective useful in your own projects. We are happy to discuss them in more detail and we are looking forward to your feedback! 
