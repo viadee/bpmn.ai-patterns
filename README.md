@@ -170,15 +170,15 @@ By combining two ML procedures we mitigate this risk by identifying rarities - a
 
 An _anomaly detection_ evaluates each case first with an anomaly score. For example in an insurance claims process, the first car damage reported for a new electric car model should of course be evaluated manually as well as for example unusually costly repairs on sports cars are. 
 
-* Niedrige Anomalie-Scores sollten die Regel darstellen. Diese Routinen sind ausreichend in den Trainingsdaten vorhanden und können mit hoher Konfidenz vom ML-Modell entscheiden werden.  
-* Mittlere Anomalie-Scores sind selten. Prozessverantwortliche kontrollieren einen, der Konfidenz äquivalenten, Schwellwert. Wird dieser überschritten handelt es sich um eine Anomalie, die menschliche Aufmerksamkeit benötigt. Auf diese Weise werden nützliche Trainingsdaten erzeugt.
-* Hohe Anomalie-Scores - Anomalien - werden grundsätzlich von einer manuellen Sachbearbeitung übernommen. Hier besteht dauerhaft wenig Hoffnung auf Automatisierung, aber die Aufmerksamkeit ist hier auch gut investiert. 
+* Low anomaly scores should be the rule. These routines are sufficiently present in the training data and the Ml model can decide cases with high confidence.  
+* Medium anomaly scores are rare. Process owners control a threshold value equivalent to the confidence. If this threshold exceeds, it is an anomaly that requires human attention. In this way, useful training data is generated.
+* High anomaly scores - anomalies - are always taken over by manual processing. Here there is little hope for automation in the long run, but the attention is well invested. 
 
-Anomalieerkennung begegnet dem Risiko unbekannte Fälle durch die Automatisierung “rutschen” zu lassen. Zwar sollte eine ML-basierte Klassifizierung Anomalien mit niedriger Konfidenz bewerten, jedoch sind Anomalie-Scores und Konfidenzwerte unterschiedliche Anwendungsfälle.
+Anomaly Detection addresses the risk of "slipping" unknown cases through automation. Although an ML-based classification should evaluate anomalies with low confidence, anomaly scores and confidence values are different use cases.
 
-Anomalien könnte Sonderfälle identifizieren, welche wohlmöglich Chancen auf Prozessverbesserung bieten. Mindestens aber lernen zukünftige Modelle durch das gezielte Erzeugen neuer Lerndaten sicherer mit diesen Fällen umzugehen.
+Anomalies could identify special cases that may offer opportunities for process improvement. Controlling anomalies generate new learning data in a targeted manner, which will help future models learn to deal with these cases more safely.
 
-:bulb: Machine Learning-Modelle, die für Dritte zugänglich sind, müssen sich ggf. auch gegen gezielte Angriffe schützen, die ein Modell gezielt in die Irre führen sollen (Adversarial Machine Learning). Der Aufbau hierzu ist identisch.
+:bulb: Machine learning models that are accessible by third parties may also have to protect themselves against targeted attacks that intend to mislead a model (Adversarial Machine Learning). The structure is identical.
 
 ### Ensemble
 
