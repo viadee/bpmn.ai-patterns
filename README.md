@@ -15,13 +15,13 @@ Companies that already use a workflow engine (such as [Camunda](https://camunda.
     - [Decision Support - AI First](#decision-support---ai-first)
   - [Group 3: Data protection and Compliance](#group-3-data-protection-and-compliance)
     - [GDPR Consent](#gdpr-consent)
-    - [Entscheidung argumentieren](#entscheidung-argumentieren)
+    - [Arguing for a decision](#arguing-for-a-decision)
   - [Group 4: Sustainability](#group-4-sustainability)
     - [Drift Detection](#drift-detection)
   - [Group 5: Multi-Model Patterns](#group-5-multi-model-patterns)
     - [Anomaly Decision Safeguard](#anomaly-decision-safeguard)
     - [Ensemble](#ensemble)
-    - [Divide and Conquer - Prozess-Zuordnung](#divide-and-conquer---prozess-zuordnung)
+    - [Divide and Conquer - Prozess Assignment](#divide-and-conquer---process-assignment)
   - [Fazit](#fazit)
 
 *Convention*: AI components are highlighted in green in the process patterns.
@@ -195,7 +195,7 @@ Alternatively, decisions can also be made democratically, if necessary with huma
 
 :warning: Run and learning times increase, feature importance is more difficult to derive. Decision quality increases at the price of the complexity of ML-based decisions.
 
-### Divide and Conquer - Prozess-Zuordnung
+### Divide and Conquer - Process Assignment
 
 Oft gilt es nicht nur einen Prozess zu automatisieren, sondern mehrere. Oft können Prozesse über mehrere Eingangskanäle durch Geschäftsvorfälle ausgelöst werden. Hier greift das Divide-and-Conquer Prinzip mit mehreren ML-Modellen, die Teile einer Problemstellung lösen.
 
