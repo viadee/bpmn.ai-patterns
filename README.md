@@ -21,8 +21,8 @@ Companies that already use a workflow engine (such as [Camunda](https://camunda.
   - [Group 5: Multi-Model Patterns](#group-5-multi-model-patterns)
     - [Anomaly Decision Safeguard](#anomaly-decision-safeguard)
     - [Ensemble](#ensemble)
-    - [Divide and Conquer - Prozess Assignment](#divide-and-conquer---process-assignment)
-  - [Fazit](#fazit)
+    - [Divide and Conquer - Process Choice](#divide-and-conquer---process-choice)
+  - [Summary](#summary)
 
 *Convention*: AI components are highlighted in green in the process patterns.
 
@@ -178,7 +178,7 @@ Anomaly Detection addresses the risk of "slipping" unknown cases through automat
 
 Anomalies could identify special cases that may offer opportunities for process improvement. Controlling anomalies generate new learning data in a targeted manner, which will help future models learn to deal with these cases more safely.
 
-:bulb: Machine learning models that are accessible by third parties may also have to protect themselves against targeted attacks that intend to mislead a model (Adversarial Machine Learning). The structure is identical.
+:bulb: Machine learning models that are accessible by third parties may also have to protect themselves against targeted attacks that intend to mislead a model Adversarial Machine Learning). For example MIT researchers managed to [forge images of turtles](https://arxiv.org/pdf/1707.07397.pdf), that popular classifiers recognize as a rifle reliably. If you need to [defend](https://arxiv.org/pdf/2009.03728.pdf) your automated process against this kind of fraud, you can employ the above _Anomaly Detection First_ pattern as well in order to prevent the classifier step from seeing adversarial cases in the first place.
 
 ### Ensemble
 
@@ -195,7 +195,7 @@ Alternatively, decisions can also be made democratically, if necessary with huma
 
 :warning: Run and learning times increase, feature importance is more difficult to derive. Decision quality increases at the price of the complexity of ML-based decisions.
 
-### Divide and Conquer - Process Assignment
+### Divide and Conquer - Process Choice
 
 Often it is not just one process that needs to be automated, but several. Often processes can be triggered by business transactions via several input channels. This is where the Divide-and-Conquer principle comes into play with several ML models that solve parts of a problem.
 
