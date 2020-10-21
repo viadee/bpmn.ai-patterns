@@ -128,17 +128,17 @@ The application of machine learning models would certainly be considered to be _
 
 :bulb: This can be implemented at the processor orchestration level of the IT architecture in a similar way to how VIP business transactions are handled in service companies, for example.
 
-### Entscheidung argumentieren
+### Arguing for a decision
 
-Neben dem Einspruch ist eine nachträgliche Anfechtung denkbar - historische Entscheidungen werden hinterfragt und ggf. revidiert. Hierdurch ergibt sich die Pflicht automatisierte Entscheidungen nachträglich nachzuvollziehen und korrigieren zu können.
+In addition to the objection, a subsequent dispute of a decision is conceivable - historical decisions are questioned and, if necessary, revised. This dispute results in the obligation to retroactively reconstruct and correct automated decisions.
 
 ![GDPR Contest](models/gpdr-contest.png "GDPR Contest")
 
-Das Machine-Learning-Modell historisiert die Falldaten inkl. Entscheidung und der ML-Modell Version. Diese Informationen sind notwendig, um einzelne Entscheidungen nachträglich am Modell zu wiederholen und systematisch zu analysieren. Wird ein Fall hinterfragt, dann liefert eine XAI-Analyse durch die Wiederholung dieses und potenziell vergleichbarer Fälle die Entscheidungswege, welche zum Ergebnis geführt haben. Der Einzelfall ist begründet und kann diskutiert und ggf. revidiert werden. Falsche Entscheidungswege werden transparent.
+The machine learning model historizes the case data including the decision and the ML model version. This information is necessary to repeat and systematically analyze individual decisions subsequently on the model. If a case is questioned, an XAI analysis provides the decision paths that led to the result by repeating this and potentially comparable cases. The individual case is justified and can be discussed and revised if necessary. Wrong decision paths become transparent.
 
-Über die ohnehin zu erwartende Protokollierung durch eine Prozess-Engine hinaus gilt: Revidierte Entscheidungen sind ein wichtiges Merkmal in den Daten. Der Datensatz wird korrigiert und als revidiert und korrigiert gekennzeichnet - um Fehler im ML Modell zu  verstehen und zukünftig zu minimieren.
+Beyond the expected data logging by a process engine, the following applies: Revised decisions are important characteristics in the data. The data set is corrected and marked as revised and corrected - to understand and minimize errors in the ML model in the future.
 
-:warning: Sobald personenbezogene Daten im Sinne der DSGVO im ML-Modell verarbeitet werden, ist dieses Muster verpflichtend (Vgl. Art 22 Abs. 3 DSGVO).
+:warning: As soon as personal data within the meaning of the GPDR are processed in the ML model, this pattern is mandatory (cf. GDPR Art. 22 Para. 3).
 
 ## Group 4: Sustainability
 
