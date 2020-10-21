@@ -182,18 +182,18 @@ Anomalies could identify special cases that may offer opportunities for process 
 
 ### Ensemble
 
-Verschiedene Verfahren des Machine-Learning haben auch unterschiedliche Stärken und Schwäche. Zwei Beispiele dazu:
+Different methods of machine learning also have different strengths and weaknesses. Here are two examples:
 
-* Entscheidungsbäume sind bspw. einfach nachzuvollziehen - das Overfitting-problem ist gut beherrschbar, komplexe Zusammenhänge in der jeweiligen Domäne bleiben dagegen unbeachtet.
-* Deep Learning ist schlecht nachzuvollziehen, lernt allerdings Zusammenhänge in tieferer Komplexität.
+* Decision trees, for example, are easy to understand - the overfitting problem is easy to master, but complex relationships in the respective domain remain unnoticed.
+* Deep learning is difficult to understand but learns relationships in deeper complexity.
 
-Die Ensemble-Idee ist die Stärken von mehreren Verfahren zu kombinieren: Mehrere Modelle entscheiden den gleichen Fall - herrscht Einigkeit ist die Entscheidung klar. Uneinigkeit wird beobachtet und ebenfalls mit Machine-Learning-Mitteln überwacht - ein weiteres Modell entscheidet, welche Modelle in welchen Situationen gute Performance zeigen. 
+The ensemble idea is to combine the strengths of several methods: Several models decide the same case - if there is an agreement, the decision is clear. Disagreement is observed and also monitored with machine learning tools - another model decides which models perform well in which situations. 
 
 ![Ensemble](models/ensemble.png "Ensemble")
 
-Alternativ kann hier auch demokratisch entschieden werden, ggf. auch mit menschlicher Beteiligung im Sinne eines 4-Augen-Prinzips. Oft werden Ensembles auch “verpackt” eingesetzt, d.h. so, dass sie aus der aufrufenden Architektur-Schicht als ein einziges Modell agieren. Ein Nachteil ist, dass Stärken und Schwächen der Teil-Modelle nach außen hin unsichtbar und damit auch unreflektierbar bleiben. Mit einer expliziten Modellierung wird auch ein schrittweiser Rollout neuer Modelle möglich: Neue “Mitbürger” kommen mit in die Demokratie und stimmen mit ab, geben vielleicht gute Konfidenzwerte an und bekommen so viel Entscheidungs-Gewicht - oder nicht.
+Alternatively, decisions can also be made democratically, if necessary with human participation in the sense of a 4-eye principle. Often ensembles are also used "packaged", i.e. in such a way that they act as a single model from the calling architectural layer. A disadvantage is that the strengths and weaknesses of the partial models remain invisible to the outside and thus also non-reflectable. Explicit modeling also makes a step-by-step rollout of new models possible: New "fellow citizens" join the democracy and vote, perhaps giving good confidence values and thus receiving a lot of decision weight - or not.
 
-:warning: Lauf- und Lernzeiten steigen an, Feature-Wichtigkeiten sind schwerer abzuleiten.
+:warning: Run and learning times increase, feature importance is more difficult to derive. Decision quality increases at the price of the complexity of ML-based decisions.
 
 ### Divide and Conquer - Prozess-Zuordnung
 
