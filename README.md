@@ -5,6 +5,8 @@ From an architectural perspective, it is straightforward how to make a single ma
 
 Companies that already use a workflow engine (such as [Camunda](https://camunda.com) have a head start on AI use cases. There are different integration patterns, with their own advantages and disadvantages. The patterns can be easily understood as small BPMN processes. This is an important perspective to meet the demands of fairness and transparency in AI applications.
 
+In our projects we found the following list of patterns useful. On one hand, they serve as a means of communication between Data Scientists and Process Owners or Process Automation Specialists. On the other hand, they can be used as a checklist of ideas to consider, when you bring AI-based decision making into production.
+
 - [bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes](#bpmnai-process-patterns-to-orchestrate-your-ai-services-in-business-processes)
   - [Group 1: Getting started](#group-1-getting-started)
     - [Process data collection - just look, do not touch](#process-data-collection---just-look-do-not-touch)
@@ -22,7 +24,7 @@ Companies that already use a workflow engine (such as [Camunda](https://camunda.
     - [Anomaly Decision Safeguard](#anomaly-decision-safeguard)
     - [Ensemble](#ensemble)
     - [Divide and Conquer - Process Choice](#divide-and-conquer---process-choice)
-  - [Summary](#summary)
+  - [Summary and Outlook](#summary-and-outlook)
 
 *Convention*: AI components are highlighted in green in the process patterns.
 
@@ -193,6 +195,8 @@ The ensemble idea is to combine the strengths of several methods: Several models
 
 Alternatively, decisions can also be made democratically, if necessary with human participation in the sense of a 4-eye principle. Often ensembles are also used "packaged", i.e. in such a way that they act as a single model from the calling architectural layer. A disadvantage is that the strengths and weaknesses of the partial models remain invisible to the outside and thus also non-reflectable. Explicit modeling also makes a step-by-step rollout of new models possible: New "fellow citizens" join the democracy and vote, perhaps giving good confidence values and thus receiving a lot of decision weight - or not.
 
+:bulb: Ensembles tend to be harder to fool than individual models, both against random noise and against attackers using adversarial learning techniques. 
+
 :warning: Run and learning times increase, feature importance is more difficult to derive. Decision quality increases at the price of the complexity of ML-based decisions.
 
 ### Divide and Conquer - Process Choice
@@ -211,8 +215,12 @@ The separation of these two steps makes strategic sense because Entity Extractio
 
 :warning: The target metric used for machine learning should not only be optimized for the "hit rate" but should also take individual error costs into account. A wrong classification of a contract application as termination can be expensive.
 
-## Summary
+## Summary and Outlook
 
-Machine Learning supports many challenges of modern process automation. The collection of process key metrics alone improves the data situation and provides information about the behavior of individual sub-processes. Process owners use confidence to control the degree of automation and maintain control over the machine. 
+Machine Learning supports many challenges of modern process automation. The collection of process key metrics alone improves the data situation and provides information about the behavior of individual sub-processes. Process owners require confidence thresholds to control the degree of automation. 
 
-A healthy skepticism about ML integration will give way to justified trust if risks are adequately addressed through explainability, drift detection, and anomaly detection. Regardless of the patterns or the type of ML model used, it is recommended or if personal data is involved required to safe ML decisions. A history of ML results and used models help to argue for both privacy and the quality of automated decisions.
+You can manifest your healthy skepticism about ML decision making into checks and balances through explainability, drift detection, and anomaly detection. A history of ML results and used models help to argue for accountability and closes feedback loop to maintain the quality of automated decisions in the long term.
+
+
+
+:soon: There are more patterns in the backlog, which we plan to include in the future. This list of patterns has a permanent open source home on [Github](https://github.com/viadee/bpmn.ai-patterns). We hope that you find this high level perspective useful in your own projects. We are happy to discuss them in more detail and we are looking forward to your feedback! 
