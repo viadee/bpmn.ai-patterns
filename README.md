@@ -32,7 +32,7 @@ In our projects, we found the following list of patterns useful. On the one hand
 ## Group 1: Getting started
 ### Process data collection - just look, do not touch
 
-The first and simplest pattern does not contain an AI component, but only comprises a business process with a manual activity, whose call is logged with the relevant metadata and process variables included.
+The first and simplest pattern does not contain an AI component but only comprises a business process with a manual activity, whose call is logged with the relevant metadata and process variables included.
 
 ![CollectOnly](models/collect-only.png "Collect only")
 
@@ -86,7 +86,7 @@ The AI does not make its own technical decision here, but it can stop technical 
 :warning: Attention: Expect false alarms. This pattern assumes that normality has been established in your process. For some business processes this assumption can be wrong.
 
 * Very new processes with less than a few hundred process instances will not have produced enough data to allow the algorithm an adequate view of what _usually happens_.
-* If this amount of data is gathered, the algorithm can point out _unusual_ data points and bring them to attention. This will also regularly happen after software releases, whenever they influece the data flowing through your processes. E.g. if you change your pricing scheme in a software release the first prices generated will likely look _unusual_ to the algorithm, until it is retrained on the new data points and we gathered enough of them, to consider them a part of the new normality.
+* If this amount of data is gathered, the algorithm can point out _unusual_ data points and bring them to attention. This will also regularly happen after software releases, whenever they influence the data flowing through your processes. E.g. if you change your pricing scheme in a software release the first prices generated will likely look _unusual_ to the algorithm, until it is retrained on the new data points and we gathered enough of them, to consider them a part of the new normality.
 
 ## Group 2: Intervenability
 
@@ -99,7 +99,7 @@ The use of process engines is an investment in flexibility - changes can be made
 Consider an AI component for a classification decision such as _"Does this insurance claim have to be examined by an expert?"_. Besides the decision itself, the AI component indicates how confident it is with its own decision (Confidence). This is usually given in the value range 0.0 to 1.0, where 1.0 corresponds to a 100% certainty, which is hardly achievable. 
 Depending on this confidence value, we branch off to a manual processing or bypass it as needed:
 
-* Minimum confidence = 100% - this would be equivalent to a test or pilot operation. The AI component operates live on the real data, but will in fact never make a decision autonomously because the 100% threshold is never reached. Even human clerks would have a residual uncertainty, but do not quantify it.
+* Minimum confidence = 100% - this would be equivalent to a test or pilot operation. The AI component operates live on the real data but will in fact never make a decision autonomously because the 100% threshold is never reached. Even human clerks would have a residual uncertainty, but do not quantify it.
 * Minimum confidence = ~93.45% - The AI decides if it can do it safely and smuggles standard cases past the clerk because for standard cases high confidence will be possible. The concrete threshold value can be optimized with regard to process and error costs, so that threshold values with several decimal places may be useful.
 * Minimum confidence = 90.00% - A manually set value, based on the experience of those responsible for the process. The value is below the above-mentioned optimum. This increases the automation rate, we accept a higher error rate. This could be a useful configuration after a major incident, where the department is simply overwhelmed.
 * Minimum confidence = 0.00% - The AI always decides autonomously, even if uncertainties are clear. In general, this is not a reasonable configuration, unless a business process is to be operated without employees (e.g. in a lockdown situation). Objection!
