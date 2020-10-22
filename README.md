@@ -50,7 +50,7 @@ Not only can you use such insights to prioritize automation efforts, but you wil
 An example of this: In input management an AI classifies incoming business transactions and forwards them to the responsible processes. The machine learning for this will learn on the history of manual classifications and try to classify them in the same way. Every machine learning needs a target key metric, which has to be optimized. The classic approach for classification problems of this kind is to optimize a kind of hit rate of correct to incorrect classifications. Although this works, it systematically wastes savings potential - in the end, the goal is incompletely defined. If we want to try to avoid expensive processes, this goal must become part of the target key metric, because in input management not all misclassifications are equally expensive.
 
 * To wrongly categorize an incoming new customer contract as termination is the biggest possible mistake.
-* Classifying a termination as an incoming new customer contract is a pity, but has hardly any economic consequences.
+* Classifying a termination as an incoming new customer contract is a pity but has hardly any economic consequences.
 * If the economic consequences of mistakes are difficult to estimate, one can at least try to prefer favorable (or favorably correctable) processes.
 
 The classic approach "maximize hit rate" implies that all errors have the same consequences. This is sufficient for a proof-of-concept, but not for productive, economic use of the AI components. To be able to make these weightings, a process data collection is needed as a basis.
