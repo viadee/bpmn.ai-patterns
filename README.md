@@ -45,7 +45,7 @@ Relevant questions are:
 * How expensive are which activities?
 * Are there systematic correlations between input and output of individual activities? May we hope to automate them?
 
-Not only can you use such insights to prioritize automisation efforts, but you will also need to rely on them while implementing automated decisions with machine learning approaches: They become part of the *loss function*.
+Not only can you use such insights to prioritize automation efforts, but you will also need to rely on them while implementing automated decisions with machine learning approaches: They become part of the *loss function*.
 
 An example of this: In input management an AI classifies incoming business transactions and forwards them to the responsible processes. The machine learning for this will learn on the history of manual classifications and try to classify them in the same way. Every machine learning needs a target key metric, which has to be optimized. The classic approach for classification problems of this kind is to optimize a kind of hit rate of correct to incorrect classifications. Although this works, it systematically wastes savings potential - in the end, the goal is incompletely defined. If we want to try to avoid expensive processes, this goal must become part of the target key metric, because in input management not all misclassifications are equally expensive.
 
