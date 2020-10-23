@@ -14,9 +14,9 @@ In our projects, we found the following list of patterns useful. On the one hand
     - [Digital Common Sense - Anomaly Detection on Process Results](#digital-common-sense---anomaly-detection-on-process-results)
   - [Group 2: Intervenability](#group-2-intervenability)
     - [Controllable Degree of Automation](#controllable-degree-of-automation)
-    - [Decision Support - AI First](#decision-support---ai-first)
-    - [Decision Support - Human First](#decision-support---human-first)
-  - [Group 3: Data protection and Compliance](#group-3-data-protection-and-compliance)
+    - [Decision Support - AI-First](#decision-support---ai-first)
+    - [Decision Support - Human-First](#decision-support---human-first)
+  - [Group 3: Data Protection and Compliance](#group-3-data-protection-and-compliance)
     - [GDPR Consent](#gdpr-consent)
     - [Arguing for a decision](#arguing-for-a-decision)
   - [Group 4: Sustainability](#group-4-sustainability)
@@ -48,9 +48,9 @@ Relevant questions are:
 
 Not only can you use such insights to prioritize automation efforts, but you will also need to rely on them while implementing automated decisions with machine learning approaches: They become part of the *loss function*.
 
-An example of this: In input management an AI classifies incoming business transactions and forwards them to the responsible processes. The machine learning for this will learn on the history of manual classifications and try to classify them in the same way. Every machine learning needs a target key metric, which has to be optimized. The classic approach for classification problems of this kind is to optimize a kind of hit rate of correct to incorrect classifications. Although this works, it systematically wastes savings potential - in the end, the goal is incompletely defined. If we want to try to avoid expensive processes, this goal must become part of the target key metric, because in input management not all misclassifications are equally expensive.
+An example: In input management an AI classifies incoming business documents and forwards them to the responsible processes. The machine learning model to accomplish this willfro  the history of manual classifications and try to classify them in the same way. Every machine learning needs a target key metric, which has to be optimized. The classic approach for classification problems of this kind is to optimize a kind of hit rate of correct to incorrect classifications. Although this works, it systematically wastes potential savings  - in the end, the goal is incompletely defined. If we want to try to avoid expensive processes, this goal must become part of the target key metric, because in input management not all misclassifications are equally expensive.
 
-* To wrongly categorize an incoming new customer contract as termination is the biggest possible mistake.
+* To wrongly categorize an incoming new customer contract as a termination is the biggest possible mistake.
 * Classifying a termination as an incoming new customer contract is a pity but has hardly any economic consequences.
 * If the economic consequences of mistakes are difficult to estimate, one can at least try to prefer favorable (or favorably correctable) processes.
 
@@ -62,13 +62,13 @@ The classic approach "maximize hit rate" implies that all errors have the same c
 
 ### Serviceless AI - DMN as Minimal AI Runtime Environment
 
-Deep learning is modern and inspires with its possibilities, but it is the current ultimate ratio of machine learning: costly, data-hungry, difficult to understand, non-deterministic and they imply an increase in complexity in IT operations: You will need to maintain a number of fast moving infrastructure technologies, probably both software and GPU-resources.
+Deep learning is modern and inspires with its possibilities, but it is the current ultimate ratio of machine learning: costly, data-hungry, difficult to understand, non-deterministic and they imply an increase in complexity in IT operations: You will need to maintain several fast-moving infrastructure technologies, probably both software and GPU-resources.
 
-However, simplicity, explainability and determinism are obvious design goals - according to Commen Sense and also explicitly on the part of regulators such as the [Recommendations of the German Data Protection Conference (in german)](https://www.datenschutzkonferenz-online.de/media/en/20191106_positionspapier_kuenstliche_intelligenz.pdf) since 2019. For decision automation purposes, that rely on tabular data, there may be a shortcut route.
+However, simplicity, explainability, and determinism are obvious design goals - according to common sense and also explicitly on the part of regulators such as the [Recommendations of the German Data Protection Conference (in german)](https://www.datenschutzkonferenz-online.de/media/en/20191106_positionspapier_kuenstliche_intelligenz.pdf) since 2019. For decision automation purposes, that rely on tabular data, there may be a shortcut route.
 
 ![DMN as runtime](models/dmn-as-runtime-environment.png "DMN as runtime")
 
-One way to maximize simplicity would be to use a rule-based or decision-tree based approach instead. Often, their results can be translated into _DMN decision tables_ with little frictional loss. DMN tables are not only traceable but can also be modified as needed. In addition, there is no need for specific operational infrastructure: Modern workflow engines can execute DMN out of the box. This pattern highly attractive from an architecture point of view and in order to collect low-hanging fruits in terms of business cases - it will not serve as lighthouse project and will probably not win the enthusiasm of data scientists.
+One way to maximize simplicity would be to use a rule-based or decision-tree based approach instead. Often, their results can be translated into _DMN decision tables_ with little frictional loss. DMN tables are not only traceable but can also be modified as needed. In addition, there is no need for specific operational infrastructure: Modern workflow engines can execute DMN out of the box. This pattern highly attractive from an architecture point of view and in order to collect low-hanging fruits in terms of business cases - it will not serve as flagship project and will probably not win the enthusiasm of data scientists.
 
 :bulb: In principle, this is also possible with more complex machine learning methods (e.g. through the [Anchors](https://github.com/viadee/javaAnchorExplainer) approach to derive rules from ML models). 
 
@@ -82,12 +82,12 @@ To address this issue, an AI procedure of anomaly detection can be used as one o
 
 ![Anomaly Detection last](models/anomaly-detection-last.png "Anomaly Detection last")
 
-The AI does not make its own technical decision here, but it can stop technical decisions of others (people and systems) if they look "strange". The introduction is therefore easier to argue but may offer fewer savings than optimizations. The keynote of anomaly detection is that an AI model learns what constitutes - or even violates - normality in a business process or its results. This can be based on obvious things like tariffs or costs, but it can also include more factors than would be manageable with manual testing. Optionally, aspects of the course of the process could also become part of the anomaly detection, for example to automatically escalate processes that are particularly long-running or (compared to the learned normality) circulated processes that are particularly frequent.
+The AI does not make its own decision here, but it can stop decisions of others (people and systems) if they look "strange". The introduction is therefore easier to argue but may offer fewer savings than optimizations. The keynote of anomaly detection is that an AI model learns what constitutes - or even violates - normality in a business process or its results. This can be based on obvious things like tariffs or costs, but it can also include more factors than would be manageable with manual testing. Optionally, aspects of the course of the process could also become part of the anomaly detection, for example to automatically escalate processes that are particularly long-running or (compared to the learned normality) circulated processes that are particularly frequent.
 
-:warning: Attention: Expect false alarms. This pattern assumes that normality has been established in your process. For some business processes this assumption can be wrong.
+:warning: Attention: Expect false alarms. This pattern assumes that normality has been established in your process. For some business processes, this assumption can be wrong.
 
 * Very new processes with less than a few hundred process instances will not have produced enough data to allow the algorithm an adequate view of what _usually happens_.
-* If this amount of data is gathered, the algorithm can point out _unusual_ data points and bring them to attention. This will also regularly happen after software releases, whenever they influence the data flowing through your processes. E.g. if you change your pricing scheme in a softwae release the first prices generated will likely look _unusual_ to the algorithm, until it is retrained on the new data points and we gathered enough of them, to consider them a part of the new normality.
+* If this amount of data is gathered, the algorithm can point out _unusual_ data points and bring them to attention. This will also regularly happen after software releases, whenever they influence the data flowing through your processes. E.g. if you change your pricing scheme in a software release the first prices generated will likely look _unusual_ to the algorithm, until it is retrained on the new data points and we gathered enough of them, to consider them a part of the new normality.
 
 ## Group 2: Intervenability
 
@@ -98,21 +98,21 @@ The use of process engines is an investment in flexibility - changes can be made
 ![Controlled Confidence](models/controlled-confidence.png "Controlled Confidence")
 
 Consider an AI component for a classification decision such as _"Does this insurance claim have to be examined by an expert?"_. Besides the decision itself, the AI component indicates how confident it is with its own decision (Confidence). This is usually given in the value range 0.0 to 1.0, where 1.0 corresponds to a 100% certainty, which is hardly achievable. 
-Depending on this confidence value, we branch off to a manual processing or bypass it as needed:
+Depending on this confidence value, we branch off to manual processing or bypass it as needed:
 
 * Minimum confidence = 100% - this would be equivalent to a test or pilot operation. The AI component operates live on the real data but will in fact never make a decision autonomously because the 100% threshold is never reached. Even human clerks would have a residual uncertainty, but do not quantify it.
 * Minimum confidence = ~93.45% - The AI decides if it can do it safely and smuggles standard cases past the clerk because for standard cases high confidence will be possible. The concrete threshold value can be optimized with regard to process and error costs, so that threshold values with several decimal places may be useful.
 * Minimum confidence = 90.00% - A manually set value, based on the experience of those responsible for the process. The value is below the above-mentioned optimum. This increases the automation rate, we accept a higher error rate. This could be a useful configuration after a major incident, where the department is simply overwhelmed.
-* Minimum confidence = 0.00% - The AI always decides autonomously, even if uncertainties are clear. Often, this is not a reasonable configuration. You will only want to use this configuration in low stakes situations such as ad targeting.
+* Minimum confidence = 0.00% - The AI always decides autonomously, even if uncertainties are clear. Often, this is not a reasonable configuration. You will only want to use this configuration in low-stakes situations such as ad targeting.
 
 :warning: Note group 1: process data collection - automated decisions should be saved for later review, esp. if they have been overruled by manual decisions.
 
 
-### Decision Support - AI First
+### Decision Support - AI-First
 
-In this pattern a machine learning component is always called before a human decision. It then passes on its results (including confidence estimations and ideally a justification for the result) to support the manual decision. This is particularly useful when an additional method of explainable AI (XAI) is used, which can generate so-called local explanations: for example relative features importances for individual cases.
+In this pattern, a machine learning component is always called before a human decision. It then passes on its results (including confidence estimations and ideally a justification for the result) to support the manual decision. This is particularly useful when an additional method of explainable AI (XAI) is used, which can generate so-called local explanations: for example relative features importances for individual cases.
 
-![Decision Support - AI first](models/decision-support-ai-first.png "Decision Support - AI first")
+![Decision Support - AI first](models/decision-support-ai-first.png "Decision Support - AI-first")
 
 In the best case, a human-machine-four-eyes principle is created that improves the overall level of decision quality and consistency across several decision-makers and thus promotes fairness in the sense of equal treatment. Also, decisions can be made more efficiently and thereby more frequently, if that fits your business case (i.e. in Risk Management or Quality Control).
 
@@ -121,20 +121,20 @@ In the best case, a human-machine-four-eyes principle is created that improves t
 :warning: For this to succeed, equal treatment in the learning data set is a mandatory prerequisite. The Austrian AMS can serve as a negative example again, as it only reflects the prejudices of the labour market on unemployed females.
 
 
-### Decision Support - Human First
+### Decision Support - Human-First
 
-One approach to handle the problems of the "AI first" decision support pattern is to turn it around: Human decisions are required first, then the new decision (or a set of recent decisions) is reflected upon using machine learning technologies.
+One approach to handle the problems of the "AI-first" decision support pattern is to turn it around: Human decisions are required first, then the new decision (or a set of recent decisions) is reflected upon using machine learning technologies.
 
-![Decision Support - human first](models/decision-support-human-first.png "Decision Support - Human first")
+![Decision Support - human first](models/decision-support-human-first.png "Decision Support - Human-first")
 
-Suppose you have a number of decision makers that randomly receive decision making tasks. An interesting twist for this case is to take the human decision for granted and try to predict the decision maker. If this fails or just leads to low confidence predictions, all is well - if it works, it is worth reflecting upon how the machine learning was able to do that. Usually, you will shed light on some kind of misunderstanding or bias. 
+Suppose you have a number of decision-makers that randomly receive decision making tasks. An interesting twist for this case is to take the human decision for granted and try to predict the decision-maker. If this fails or just leads to low confidence predictions, all is well - if it works, it is worth reflecting upon how the machine learning was able to do that. Usually, you will shed light on some kind of misunderstanding or bias. 
 
-Here the machine learing component never influences _individual_ decisions but only serves as a quality control for human decision making in the business process. This is appropriate for _high stakes_ decisions that are susceptible to bias: Loan approval, fraud detection, HR decisions etc.
+Here the machine learning component never influences _individual_ decisions but only serves as quality control for human decision making in the business process. This is appropriate for _high stakes_ decisions that are susceptible to bias: Loan approval, fraud detection, HR decisions, etc.
 
-:warning: While this pattern helps to protect those affected by the decisions made, it could both be employed as an opportunity for a team to learn and grow or as a means of workforce surveilliance depending on corporate culture. 
+:warning: While this pattern helps to protect those affected by the decisions made, it could both be employed as an opportunity for a team to learn and grow or as a means of workforce surveillance depending on corporate culture. 
 
 
-## Group 3: Data protection and Compliance
+## Group 3: Data Protection and Compliance
 
 ### GDPR Consent
 
@@ -196,7 +196,7 @@ Anomaly Detection addresses the risk of "slipping" unknown cases through automat
 
 Anomalies could identify special cases that may offer opportunities for process improvement. Controlling anomalies generate new learning data in a targeted manner, which will help future models learn to deal with these cases more safely.
 
-:bulb: Machine learning models that are accessible by third parties may also have to protect themselves against targeted attacks that intend to mislead a model Adversarial Machine Learning). For example MIT researchers managed to [forge images of turtles](https://arxiv.org/pdf/1707.07397.pdf), that popular classifiers recognize as a rifle reliably. If you need to [defend](https://arxiv.org/pdf/2009.03728.pdf) your automated process against this kind of fraud, you can employ the above _Anomaly Detection First_ pattern as well in order to prevent the classifier step from seeing adversarial cases in the first place.
+:bulb: Machine learning models that are accessible by third parties may also have to protect themselves against targeted attacks that intend to mislead a model Adversarial Machine Learning). For example, MIT researchers managed to [forge images of turtles](https://arxiv.org/pdf/1707.07397.pdf), that popular classifiers recognize as a rifle reliably. If you need to [defend](https://arxiv.org/pdf/2009.03728.pdf) your automated process against this kind of fraud, you can employ the above _Anomaly Detection First_ pattern as well in order to prevent the classifier step from seeing adversarial cases in the first place.
 
 ### Ensemble
 
