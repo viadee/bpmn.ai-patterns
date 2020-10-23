@@ -161,18 +161,18 @@ Beyond the expected data logging by a process engine, the following applies: Rev
 ## Group 4: Sustainability
 
 ### Drift Detection
-Most AI applications do not learn continously (and rightly so). This, however, raises the question: _"How often do I need to train my ML model with new data?"_
+Most AI applications do not learn continuously (and rightly so). This, however, raises the question: _"How often do I need to train my ML model with new data?"_
 
-Drift (or Concept Drift) is a technical term that describes the fact that data becomes stale after some time. ML models derived from data therefore also become stale: The  knowledge baked into the model and reality drift apart. The following patterns helps to measure this effect.
+Drift (or Concept Drift) is a technical term that describes the fact that data becomes stale after some time. ML models derived from data therefore also become stale: The  knowledge baked into the model and reality drift apart. The following pattern helps to measure this effect.
 
-Clerks are randomly assigned cases here with a certain probability. This non-automation rate is freely selectable, but should generally not be 0%, so that fresh training data is available in the future. An example: A company that has recorded market or customer behavior over a long period of time and used it for ML based marketing automation must fear, that the data from before the corona pandemic is no longer meaningful - the model has experienced a (sudden) concept drift.
+Clerks are randomly assigned cases here with a certain probability. This non-automation rate is freely selectable, but should generally not be 0%, so that fresh training data is available in the future. An example: A company that has recorded market or customer behavior over a long period of time and used it for ML-based marketing automation must fear, that the data from before the corona pandemic is no longer meaningful - the model has experienced a (sudden) concept drift.
 
 ![Drift Detection](models/drift-detection.png "Drift Detection")
 
 In order to notice these drifts in less obvious cases, manual decisions are sporadically required. They create a reference.
 Often only parts of the market behavior change - small things like new car brands make it difficult for a machine learning model to generalize rules from the past into the future. A continuous supply of up-to-date, manual decisions helps here as well. 
 
-:bulb: The pattern can also be used as a feature toggle for a pilot, i.e. a riskless rollout, if the degree of automation adjusts close to 0%. 
+:bulb: The pattern can also be used as a feature toggle for a pilot, i.e. a riskless rollout if the degree of automation adjusts close to 0%. 
 
 :warning: It is important to log for each case whether a manual or an automatic decision has been made, in order to ensure auditability and to prevent the model from following its own unverified decisions in later training rounds.
 
@@ -182,11 +182,11 @@ Often only parts of the market behavior change - small things like new car brand
 
 Machine learning models make wrong decisions, just like humans do. Sometimes seemingly random effects put an upper bound to predictions - customer churn can be reasonably estimated, but never really predicted for individual customers. Low training data for rare or special cases are often responsible for estimations that turn out to be wrong later. 
 
-By combining two ML procedures we mitigate this risk by identifying rarities - anomalies - and steering them to the person in charge. It is safe to assume, that a machine learning model will not perform on these cases anyway, since individual cases can be strange in all kinds of ways. The underlying reasoning of analogy as referring to similar cases from the past is likely to break down when there are no reasonably similar cases. This leads to the following pattern:
+By combining two ML procedures we mitigate this risk by identifying rarities - anomalies - and steering them to the person in charge. It is safe to assume, that a machine learning model will not perform in these cases anyway, since individual cases can be strange in all kinds of ways. The underlying reasoning of analogy as referring to similar cases from the past is likely to break down when there are no reasonably similar cases. This leads to the following pattern:
 
 ![Anomaly Detection First](models/anomaly-detection-first.png "Anomaly Detection First")
 
-An _anomaly detection_ evaluates each case first with an anomaly score. For example in an insurance claims process, the first car damage reported for a new electric car model should of course be evaluated manually as well as for example unusually costly repairs on sports cars are. 
+An _anomaly detection_ evaluates each case first with an anomaly score. Consider an insurance claims process, the first car damage reported for a new electric car model should of course be evaluated manually as well as for example unusually costly repairs on sports cars are.
 
 * Low anomaly scores should be the rule. These routines are sufficiently present in the training data and the Ml model can decide cases with high confidence.  
 * Medium anomaly scores are rare. Process owners control a threshold value equivalent to the confidence. If this threshold exceeds, it is an anomaly that requires human attention. In this way, useful training data is generated.
@@ -221,7 +221,7 @@ Often it is not just one process that needs to be automated, but several. Often 
 
 ![Process Choice](models/process-choice.png "Process Choice")
 
-A first processing step extracts from incoming documents, e-mails, or chat messages all entities, i.e. all identifiable aspects, as they might be entered into a form in the processing: Customer names, e-mail addresses, invoice numbers, etc. or more abstract assessments such as a sentiment analysis to identify and quantify affective states and subjective information, especially the expressed mood.
+A first processing step extracts from incoming documents, e-mails, or chat messages all entities, i.e. all identifiable aspects, as they might be entered into a form in the processing: Customer names, e-mail addresses, invoice numbers, etc. or more abstract assessments such as a sentiment-analysis to identify and quantify affective states and subjective information, especially the expressed mood.
 
 In this way, a stream of rather weakly structured data turns into one with single known fields. These can be used in a second ML step to classify the most suitable subsequent process that can process the data.
 
@@ -229,12 +229,12 @@ The separation of these two steps makes strategic sense because Entity Extractio
 
 :warning: There may be incidents that do not belong in any process or contain multiple concerns.
 
-:warning: The target metric used for machine learning should not only be optimized for the "hit rate" but should also take individual error costs into account. A wrong classification of a contract application as termination can be expensive.
+:warning: The target metric used for machine learning should not only be optimized for the "hit rate" but should also take individual error costs into account. The false classification of a contract application document as a contract termination can be expensive.
 
 ## Summary and Outlook
 
 Machine Learning supports many challenges of modern process automation. The collection of process key metrics alone improves the data situation and provides information about the behavior of individual sub-processes. Process owners require confidence thresholds to control the degree of automation. 
 
-You can manifest your healthy skepticism about ML decision making into checks and balances through explainability, drift detection, and anomaly detection. A history of ML results and used models helps to argue for accountability and closes feedback loop to maintain the quality of automated decisions in the long term.
+You can manifest your healthy skepticism about ML decision making into checks and balances through explainability, drift detection, and anomaly detection. A history of ML results and used models helps to argue for accountability and closes the feedback loop to maintain the quality of automated decisions in the long term.
 
-:soon: There are more patterns in the backlog, which we plan to include in the future. This list of patterns has a permanent open source home on [Github](https://github.com/viadee/bpmn.ai-patterns). We hope that you find this high level perspective useful in your own projects. We are happy to discuss them in more detail and we are looking forward to your feedback! 
+:soon: There are more patterns in the backlog, which we plan to include in the future. This list of patterns has a permanent open-source home on [Github](https://github.com/viadee/bpmn.ai-patterns). We hope that you find this high-level perspective useful in your own projects. We are happy to discuss them in more detail and we are looking forward to your feedback! 
