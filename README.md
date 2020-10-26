@@ -64,7 +64,7 @@ The classic approach "maximize hit rate" implies that all errors have the same c
 
 Deep learning is modern and inspires with its possibilities, but it is the current ultimate ratio of machine learning: costly, data-hungry, difficult to understand, non-deterministic and they imply an increase in complexity in IT operations: You will need to maintain several fast-moving infrastructure technologies, probably both software and GPU-resources.
 
-However, simplicity, explainability, and determinism are obvious design goals - according to common sense and also explicitly on the part of regulators such as the [Recommendations of the German Data Protection Conference (in german)](https://www.datenschutzkonferenz-online.de/media/en/20191106_positionspapier_kuenstliche_intelligenz.pdf) since 2019. For decision automation purposes, that rely on tabular data, there may be a shortcut route.
+However, simplicity, [explainability](https://arxiv.org/pdf/2010.09337.pdf), and determinism are obvious design goals - according to common sense and also explicitly on the part of regulators such as the [Recommendations of the German Data Protection Conference (in german)](https://www.datenschutzkonferenz-online.de/media/en/20191106_positionspapier_kuenstliche_intelligenz.pdf) since 2019. For decision automation purposes, that rely on tabular data, there may be a shortcut route.
 
 ![DMN as runtime](models/dmn-as-runtime-environment.png "DMN as runtime")
 
