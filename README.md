@@ -1,15 +1,16 @@
 # bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes
 
 The journey through an AI project often only begins with a successful proof of concept. There is still little consensus regarding the orchestration of AI services. Tool support and methodological discussions often culminate with the provision of machine learning pipelines (e.g. through [Kubeflow](https://www.kubeflow.org/)) and web services in the cloud. 
-From an architectural perspective, it is straightforward how to make a single machine learning model usable and Cloud providers such as [Azure ML Services](https://azure.microsoft.com/de-de/services/machine-learning/) claim this to be an end-to-end solution to Machine Learning per se. But, how to integrate and combine them into business processes in a meaningful way?
+From an architectural perspective, it is straightforward how to make a single machine learning model usable (e.g. via [KFServing](https://github.com/kubeflow/kfserving)) and Cloud providers such as [Azure ML Services](https://azure.microsoft.com/de-de/services/machine-learning/) even hide the service creation and then claim this to be an end-to-end solution to Machine Learning per se. But, how to integrate and combine such services into business processes in a meaningful way?
 
-Companies that already use a workflow engine (such as [Camunda](https://camunda.com)) have a head start on AI use cases. There are different integration patterns, with their own advantages and disadvantages. The patterns can be easily understood as small BPMN processes. This is an important perspective to meet the demands of fairness and transparency in AI applications.
+Companies that already use a workflow engine (such as [Camunda](https://camunda.com)) have a head start on AI use cases. Or, regarded from the other side: Introducing AI based ideas into fully manual processes is much harder than doing the same in a controlled environment with defined data flows. A few integration patterns leverage this controlled environment to orchestrate AI decision making in business processes. 
 
 In our projects, we found the following list of patterns useful. On the one hand, they serve as a means of communication between Data Scientists and Process Owners or Process Automation Specialists. On the other hand, they can be used as a checklist of ideas to consider when you bring AI-based decision making into production.
+The patterns can be easily understood as small BPMN processes. They serve different purposes, but most of them help to apply AI decision-making in a responsible and transparent way.
 
 - [bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes](#bpmnai-process-patterns-to-orchestrate-your-ai-services-in-business-processes)
-  - [Group 1: Getting started](#group-1-getting-started)
-    - [Process data collection - just look, do not touch](#process-data-collection---just-look-do-not-touch)
+  - [Group 1: Getting Started](#group-1-getting-started)
+    - [Process data collection - Just Look, Do Not Touch!](#process-data-collection---just-look-do-not-touch)
     - [Serviceless AI - DMN as Minimal AI Runtime Environment](#serviceless-ai---dmn-as-minimal-ai-runtime-environment)
     - [Digital Common Sense - Anomaly Detection on Process Results](#digital-common-sense---anomaly-detection-on-process-results)
   - [Group 2: Intervenability](#group-2-intervenability)
@@ -29,9 +30,10 @@ In our projects, we found the following list of patterns useful. On the one hand
 
 *Convention*: AI components are highlighted in green in the process patterns.
 
+Most of the patterns are not mutually exclusive, feel free to combine them.
 
-## Group 1: Getting started
-### Process data collection - just look, do not touch
+## Group 1: Getting Started
+### Process data collection - Just Look, Do Not Touch!
 
 The first and simplest pattern does not contain an AI component but only comprises a business process with a manual activity, whose call is logged with the relevant metadata and process variables included.
 
