@@ -17,12 +17,11 @@ The patterns can be easily understood as small BPMN processes. They serve differ
     - [Controllable Degree of Automation](#controllable-degree-of-automation)
     - [Decision Support - AI-First](#decision-support---ai-first)
     - [Decision Support - Human-First](#decision-support---human-first)
+    - [Drift Detection](#drift-detection)
   - [Group 3: Data Protection and Compliance](#group-3-data-protection-and-compliance)
     - [GDPR Consent](#gdpr-consent)
     - [Arguing for a decision](#arguing-for-a-decision)
-  - [Group 4: Sustainability](#group-4-sustainability)
-    - [Drift Detection](#drift-detection)
-  - [Group 5: Multi-Model Patterns](#group-5-multi-model-patterns)
+  - [Group 4: Multi-Model Patterns](#group-4-multi-model-patterns)
     - [Anomaly Decision Safeguard](#anomaly-decision-safeguard)
     - [Ensemble](#ensemble)
     - [Divide and Conquer - Process Choice](#divide-and-conquer---process-choice)
@@ -135,6 +134,22 @@ Here the machine learning component never influences _individual_ decisions but 
 
 :warning: While this pattern helps to protect those affected by the decisions made, it could both be employed as an opportunity for a team to learn and grow or as a means of workforce surveillance depending on corporate culture. 
 
+### Drift Detection
+
+Most AI applications do not learn continuously (and rightly so). This, however, raises the question: _"How often do I need to train my ML model with new data?"_
+
+Drift (or Concept Drift) is a technical term that describes the fact that data becomes stale after some time. ML models derived from data therefore also become stale: The  knowledge baked into the model and reality drift apart. The following pattern helps to measure this effect.
+
+Clerks are randomly assigned cases here with a certain probability. This non-automation rate is freely selectable, but should generally not be 0%, so that fresh training data is available in the future. An example: A company that has recorded market or customer behavior over a long period of time and used it for ML-based marketing automation must fear, that the data from before the corona pandemic is no longer meaningful - the model has experienced a (sudden) concept drift.
+
+![Drift Detection](models/drift-detection.png "Drift Detection")
+
+In order to notice these drifts in less obvious cases, manual decisions are sporadically required. They create a reference.
+Often only parts of the market behavior change - small things like new car brands make it difficult for a machine learning model to generalize rules from the past into the future. A continuous supply of up-to-date, manual decisions helps here as well. 
+
+:bulb: The pattern can also be used as a feature toggle for a pilot, i.e. a riskless rollout if the degree of automation adjusts close to 0%. 
+
+:warning: It is important to log for each case whether a manual or an automatic decision has been made, in order to ensure auditability and to prevent the model from following its own unverified decisions in later training rounds.
 
 ## Group 3: Data Protection and Compliance
 
@@ -160,25 +175,7 @@ Beyond the expected data logging by a process engine, the following applies: Rev
 
 :warning: As soon as personal data within the meaning of the GPDR are processed in the ML model, this pattern is mandatory (cf. GDPR Art. 22 Para. 3).
 
-## Group 4: Sustainability
-
-### Drift Detection
-Most AI applications do not learn continuously (and rightly so). This, however, raises the question: _"How often do I need to train my ML model with new data?"_
-
-Drift (or Concept Drift) is a technical term that describes the fact that data becomes stale after some time. ML models derived from data therefore also become stale: The  knowledge baked into the model and reality drift apart. The following pattern helps to measure this effect.
-
-Clerks are randomly assigned cases here with a certain probability. This non-automation rate is freely selectable, but should generally not be 0%, so that fresh training data is available in the future. An example: A company that has recorded market or customer behavior over a long period of time and used it for ML-based marketing automation must fear, that the data from before the corona pandemic is no longer meaningful - the model has experienced a (sudden) concept drift.
-
-![Drift Detection](models/drift-detection.png "Drift Detection")
-
-In order to notice these drifts in less obvious cases, manual decisions are sporadically required. They create a reference.
-Often only parts of the market behavior change - small things like new car brands make it difficult for a machine learning model to generalize rules from the past into the future. A continuous supply of up-to-date, manual decisions helps here as well. 
-
-:bulb: The pattern can also be used as a feature toggle for a pilot, i.e. a riskless rollout if the degree of automation adjusts close to 0%. 
-
-:warning: It is important to log for each case whether a manual or an automatic decision has been made, in order to ensure auditability and to prevent the model from following its own unverified decisions in later training rounds.
-
-## Group 5: Multi-Model Patterns
+## Group 4: Multi-Model Patterns
 
 ### Anomaly Decision Safeguard
 
