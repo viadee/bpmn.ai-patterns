@@ -1,5 +1,7 @@
 # bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes
 
+Ben Wolters, Frank Köhne
+
 The journey through an AI project often only begins with a successful proof of concept. There is still little consensus regarding the orchestration of AI services. Tool support and methodological discussions often culminate with the provision of machine learning pipelines (e.g. through [Kubeflow](https://www.kubeflow.org/)) and web services in the cloud. 
 From an architectural perspective, it is straightforward how to make a single machine learning model usable (e.g. via [KFServing](https://github.com/kubeflow/kfserving)) and Cloud providers such as [Azure ML Services](https://azure.microsoft.com/de-de/services/machine-learning/) even hide the service creation and then claim this to be an end-to-end solution to Machine Learning per se. But, how to integrate and combine such services into business processes in a meaningful way?
 
@@ -20,7 +22,7 @@ The patterns can be easily understood as small BPMN processes. They serve differ
     - [Drift Detection](#drift-detection)
   - [Group 3: Data Protection and Compliance](#group-3-data-protection-and-compliance)
     - [GDPR Consent](#gdpr-consent)
-    - [Arguing for a decision](#arguing-for-a-decision)
+    - [Arguing for a Decision](#arguing-for-a-decision)
   - [Group 4: Multi-Model Patterns](#group-4-multi-model-patterns)
     - [Anomaly Decision Safeguard](#anomaly-decision-safeguard)
     - [Ensemble](#ensemble)
@@ -130,7 +132,7 @@ One approach to handle the problems of the "AI-first" decision support pattern i
 
 Suppose you have a number of decision-makers that randomly receive decision making tasks. An interesting twist for this case is to take the human decision for granted and try to predict the decision-maker. If this fails or just leads to low confidence predictions, all is well - if it works, it is worth reflecting upon how the machine learning was able to do that. Usually, you will shed light on some kind of misunderstanding or bias. 
 
-Here the machine learning component never influences _individual_ decisions but only serves as quality control for human decision making in the business process. This is appropriate for _high stakes_ decisions that are susceptible to bias: Loan approval, fraud detection, HR decisions, etc.
+Here the machine learning component never influences _individual_ decisions but only serves as quality control for human decision making in the business process. This is appropriate for _high stakes_ decisions that are susceptible to bias: Loan approval, fraud detection, [HR decisions](https://blog.viadee.de/ki-im-personalwesen), etc.
 
 :warning: While this pattern helps to protect those affected by the decisions made, it could both be employed as an opportunity for a team to learn and grow or as a means of workforce surveillance depending on corporate culture. 
 
@@ -145,7 +147,7 @@ Clerks are randomly assigned cases here with a certain probability. This non-aut
 ![Drift Detection](models/drift-detection.png "Drift Detection")
 
 In order to notice these drifts in less obvious cases, manual decisions are sporadically required. They create a reference.
-Often only parts of the market behavior change - small things like new car brands make it difficult for a machine learning model to generalize rules from the past into the future. A continuous supply of up-to-date, manual decisions helps here as well. 
+Often only parts of the market behavior change - small things like new car brands make it difficult for a machine learning model to generalize rules from the past into the future. A continuous supply of up-to-date, manual decisions helps here as well: For e.g. 5% of all cases, the decision is made both manually and using the AI model. As long as their level of agreement is stable over a reasonable period, all is well.
 
 :bulb: The pattern can also be used as a feature toggle for a pilot, i.e. a riskless rollout if the degree of automation adjusts close to 0%. 
 
@@ -155,7 +157,7 @@ Often only parts of the market behavior change - small things like new car brand
 
 ### GDPR Consent
 
-According to GPDR Art. 22 (Lawfulness of automated processing) para. 1 there is a right of opposition or consent of individuals may be necessary to process their data for specific purposes - among other reasons for the lawfulness of processing, this should be the normal case.
+According to GPDR Art. 22 (Lawfulness of automated processing) para. 1 there is a right of opposition. In other words: Consent of individuals may be necessary to process their data for specific purposes. Among other potential reasons for the lawfulness of processing, consent should be the normal case.
 
 ![GDPR Consent](models/gdpr-consent.png "GDPR Consent")
 
@@ -163,15 +165,16 @@ The application of machine learning models would certainly be considered to be _
 
 :bulb: This can be implemented at the processor orchestration level of the IT architecture in a similar way to how VIP business transactions are handled in service companies, for example.
 
-### Arguing for a decision
+### Arguing for a Decision
 
-In addition to the objection, a subsequent dispute of a decision is conceivable - historical decisions are questioned and, if necessary, revised. This dispute results in the obligation to retroactively reconstruct and correct automated decisions.
+In addition to the objection, a subsequent dispute of a decision is conceivable - historical decisions are questioned and, if necessary, revised. This dispute results in the obligation to retroactively reconstruct and correct automated decisions. 
+Upcomping legislation will likely stress the point, that from a [consumer's point of view](https://www.uni-speyer.de/fileadmin/Lehrstuehle/Martini/2019_Gutachten_GrundlageneinesKontrollsystemendgueltig.pdf) an automated decision that can not be reconstructed is no better than an arbitray decision, since it is impossible to justify.
 
 ![GDPR Contest](models/gpdr-contest.png "GDPR Contest")
 
-The machine learning model historizes the case data including the decision and the ML model version. This information is necessary to repeat and systematically analyze individual decisions subsequently on the model. If a case is questioned, an XAI analysis provides the decision paths that led to the result by repeating this and potentially comparable cases. The individual case is justified and can be discussed and revised if necessary. Wrong decision paths become transparent.
+The _orchestrated_ machine learning workflow historizes the case data including the decision and the ML model version. This information is necessary to repeat and systematically analyze individual decisions subsequently on the model. If a case is later questioned, an XAI analysis provides the decision paths that led to the result by repeating this and potentially comparable cases. The individual case is justified and can be discussed and revised if necessary. Wrong decision paths and edge cases become transparent.
 
-Beyond the expected data logging by a process engine, the following applies: Revised decisions are important characteristics in the data. The data set is corrected and marked as revised and corrected - to understand and minimize errors in the ML model in the future.
+Beyond the expected data logging by a process engine, there is more to learn: Revised decisions often show especially important characteristics in the data. The data set is corrected and marked as revised and corrected - to understand and minimize errors in the ML model in the future.
 
 :warning: As soon as personal data within the meaning of the GPDR are processed in the ML model, this pattern is mandatory (cf. GDPR Art. 22 Para. 3).
 
@@ -179,7 +182,7 @@ Beyond the expected data logging by a process engine, the following applies: Rev
 
 ### Anomaly Decision Safeguard
 
-Machine learning models make wrong decisions, just like humans do. Sometimes seemingly random effects put an upper bound to predictions - customer churn can be reasonably estimated, but never really predicted for individual customers. Low training data for rare or special cases are often responsible for estimations that turn out to be wrong later. 
+Machine learning models make wrong decisions, just like humans do. Sometimes seemingly random effects put an upper bound on precision - customer churn can be reasonably estimated, but never really predicted for all individual customers. Low training data for rare or special cases are often responsible for estimations that turn out to be wrong later. 
 
 By combining two ML procedures we mitigate this risk by identifying rarities - anomalies - and steering them to the person in charge. It is safe to assume, that a machine learning model will not perform in these cases anyway, since individual cases can be strange in all kinds of ways. The underlying reasoning of analogy as referring to similar cases from the past is likely to break down when there are no reasonably similar cases. This leads to the following pattern:
 
@@ -220,11 +223,11 @@ Often it is not just one process that needs to be automated, but several. Often 
 
 ![Process Choice](models/process-choice.png "Process Choice")
 
-A first processing step extracts from incoming documents, e-mails, or chat messages all entities, i.e. all identifiable aspects, as they might be entered into a form in the processing: Customer names, e-mail addresses, invoice numbers, etc. or more abstract assessments such as a sentiment-analysis to identify and quantify affective states and subjective information, especially the expressed mood.
+A first processing step extracts from incoming documents, e-mails, or chat messages all entities, i.e. all identifiable aspects, as they might be entered into a form in the processing: Customer names, e-mail addresses, invoice numbers, etc. or more abstract assessments such as a sentiment-analysis to identify and quantify affective states and subjective information, especially the mood expressed in a piece of text.
 
-In this way, a stream of rather weakly structured data turns into one with single known fields. These can be used in a second ML step to classify the most suitable subsequent process that can process the data.
+In this way, a stream of rather weakly structured data turns into one with known (and typed) fields. These can be used in a second ML step to classify the most suitable subsequent process that can process the data with non-AI process automation means.
 
-The separation of these two steps makes strategic sense because Entity Extraction is becoming a standard product for which pre-trained models or cloud services can be used. Process classification requires separate learning data for their own processes.
+The separation of these two steps makes strategic sense because _Entity Extraction_ is becoming a standard product for which pre-trained models or cloud services can be used. Process classification requires separate learning data from your own processes.
 
 :warning: There may be incidents that do not belong in any process or contain multiple concerns.
 
@@ -232,8 +235,10 @@ The separation of these two steps makes strategic sense because Entity Extractio
 
 ## Summary and Outlook
 
-Machine Learning supports many challenges of modern process automation. The collection of process key metrics alone improves the data situation and provides information about the behavior of individual sub-processes. Process owners require confidence thresholds to control the degree of automation. 
+Machine Learning supports many challenges of modern process automation. The collection of _process key metrics_ alone improves the data situation and provides information about the behavior of individual sub-processes. This should be considered when evaluating business cases for workflow engines. Further, they enable some synergies for orchestrated AI: 
 
-You can manifest your healthy skepticism about ML decision making into checks and balances through explainability, drift detection, and anomaly detection. A history of ML results and used models helps to argue for accountability and closes the feedback loop to maintain the quality of automated decisions in the long term.
+* You can manifest your healthy skepticism about ML decision making into checks and balances through explainability, drift detection, and anomaly detection. 
+* Process owners require confidence thresholds to control the degree of automation. 
+* A history of ML results and used models helps to argue for accountability and closes the feedback loop to maintain the quality of automated decisions in the long term.
 
 :soon: There are more patterns in the backlog, which we plan to include in the future. This list of patterns has a permanent open-source home on [Github](https://github.com/viadee/bpmn.ai-patterns). We hope that you find this high-level perspective useful in your own projects. We are happy to discuss them in more detail and we are looking forward to your feedback! 
