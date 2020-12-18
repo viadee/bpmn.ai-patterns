@@ -152,6 +152,14 @@ Clerks are randomly assigned cases with a certain probability. This non-automati
 In order to notice these drifts in less obvious cases, manual decisions are sporadically required. They create a reference.
 Often only parts of the market behavior change - small things like new car brands make it difficult for a machine learning model to generalize rules from the past into the future. A continuous supply of up-to-date, manual decisions helps here as well: For example: in 5% of all cases, the decision is made both manually and using the AI model. As long as their level of agreement is stable over a reasonable period, all is well.
 
+If you predict numerical values and not classifications, drift detection works similarly. You need to provide ground-truth values and compare them with your prediction model. If the prediction error is repeatedly larger than a reasonable threshold, you have detected a drift. Your machine learning model is in a new situation, that it is yet not prepared to handle.
+
+The example below shows such a setup for a model that predicts the number of COVID-19 infections in the town of Münster (Germany) across 2020 with a simple model.
+
+![Covic time series drift](examples/covid-time-series/anomaly-diagnostics.png "Covic time series drift")
+
+Researchers from KIT came up with this idea and took it one step further. They use [Drift Detection methods to measure the effectiveness and time lags of interventions](https://publikationen.bibliothek.kit.edu/1000126905) for COVID-19 such as masks and lockdowns, i.e. attempts to actively _break_ the time series and exponential prediction models. 
+
 :bulb: The pattern can also be used as a feature toggle for a pilot, i.e. a riskless rollout if the degree of automation adjusts close to 0%. 
 
 :warning: It is important to log for each case whether a manual or an automatic decision has been made, in order to ensure auditability and to prevent the model from following its own unverified decisions in later training rounds.

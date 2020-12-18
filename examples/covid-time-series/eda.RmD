@@ -1,0 +1,77 @@
+---
+title: "Covid Cases Time Series [Example]"
+output: html_notebook
+---
+
+
+
+```{r setup}
+##### Installation and loading of required packages #####
+if(!eval(parse(text="require(pacman)"))) 
+{ 
+  install.packages("pacman")
+  eval(parse(text="require(pacman)"))
+}
+pacman::p_load(
+  here,
+  ggplot2,
+  readr,
+  dplyr,
+  timetk,
+  hrbrthemes,
+  h2o,
+  neptune
+)
+
+df <- read_csv(here::here("data/RKI_COVID19.csv"))
+df$Meldedatum <- as.Date(df$Meldedatum)
+
+filterLandkreis <- "SK Münster"
+df_m <- df %>% filter(Landkreis == filterLandkreis)
+df_agg <- df_m %>% group_by (Meldedatum) %>% summarize (faelle = sum(AnzahlFall))
+
+myTheme <- theme_ft_rc()
+theme_set(myTheme)
+```
+
+```{r data_understanding}
+df_agg %>% timetk::plot_anomaly_diagnostics(Meldedatum, faelle)
+```
+```{r preprocessing}
+ ts <- df_agg %>% tk_augment_slidify(.value  = faelle, .period  = c(2, 6, 30), .f = mean, .partial = TRUE)
+```
+
+```{r modeling}
+ h2o.init()
+ df_h2o = as.h2o(ts)
+ model <- h2o.automl(training_frame = df_h2o, 
+            nfolds = 3,
+            max_runtime_secs = 5,
+            x = c("faelle_roll_2","faelle_roll_6","faelle_roll_30"),
+            y = "faelle", exclude_algos = "StackedEnsemble")
+ pred <- cbind(ts, as.data.frame(h2o.predict(model, df_h2o)))
+```
+
+```{r evaluation}
+ model@leader
+ ggplot(pred, aes(x=faelle, y=predict, colour=Meldedatum)) + geom_point() + geom_smooth(method = "loess") + theme_ft_rc()
+ h2o.varimp(model@leader)
+```
+```{r monitoring}
+init_neptune(project_name = "frank.koehne/covid-drift",
+    api_token = Sys.getenv("NEPTUNE_API_TOKEN")
+)
+create_experiment(name = "Rolling Avg",
+    tags = c("experimental", "automl", "roll2", "roll6", "roll30"),
+    params = list(tuneLength = 5, model = "automl")
+)
+
+set_property(property = "data-version",
+    value = max(df_m$Datenstand)
+)
+
+log_metric("n", nrow(df_agg))
+log_metric("X-Val-RMSE", h2o.rmse(model@leader, xval = TRUE))
+
+```
+[Results](https://ui.neptune.ai/frank.koehne/covid-drift/experiments?viewId=standard-view) can be seen publicly.
