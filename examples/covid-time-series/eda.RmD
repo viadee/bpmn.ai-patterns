@@ -35,8 +35,9 @@ theme_set(myTheme)
 ```
 
 ```{r data_understanding}
-df_agg %>% timetk::plot_anomaly_diagnostics(Meldedatum, faelle)
+ df_agg %>% timetk::plot_anomaly_diagnostics(Meldedatum, faelle)
 ```
+
 ```{r preprocessing}
  ts <- df_agg %>% tk_augment_slidify(.value  = faelle, .period  = c(2, 6, 30), .f = mean, .partial = TRUE)
 ```
@@ -57,6 +58,7 @@ df_agg %>% timetk::plot_anomaly_diagnostics(Meldedatum, faelle)
  ggplot(pred, aes(x=faelle, y=predict, colour=Meldedatum)) + geom_point() + geom_smooth(method = "loess") + theme_ft_rc()
  h2o.varimp(model@leader)
 ```
+
 ```{r monitoring}
 init_neptune(project_name = "frank.koehne/covid-drift",
     api_token = Sys.getenv("NEPTUNE_API_TOKEN")
@@ -72,6 +74,6 @@ set_property(property = "data-version",
 
 log_metric("n", nrow(df_agg))
 log_metric("X-Val-RMSE", h2o.rmse(model@leader, xval = TRUE))
-
+stop_experiment()
 ```
 [Results](https://ui.neptune.ai/frank.koehne/covid-drift/experiments?viewId=standard-view) can be seen publicly.

@@ -27,6 +27,10 @@ The patterns can be easily understood as small BPMN processes. They serve differ
     - [Anomaly Decision Safeguard](#anomaly-decision-safeguard)
     - [Ensemble](#ensemble)
     - [Divide and Conquer - Process Choice](#divide-and-conquer---process-choice)
+  - [Group 5: Training](#group-5-training)
+    - [Pipelines and DAGs](#pipelines-and-dags)
+    - [Increasing Levels of Destruction](#increasing-levels-of-destruction)
+    - [Human in the Loop](#human-in-the-loop)
   - [Summary and Outlook](#summary-and-outlook)
 
 *Convention*: AI components are highlighted in green in the process patterns.
@@ -34,6 +38,8 @@ The patterns can be easily understood as small BPMN processes. They serve differ
 Most of the patterns are not mutually exclusive, feel free to combine them.
 
 ## Group 1: Getting Started
+
+This first group of process patterns both serve as a useful introduction to the bpmn.ai perspective and they are a good starting point for organisations working to get first AI / machine learning applications into production.
 ### Process data collection - Just Look, Don't Touch!
 
 The first and simplest pattern does not contain an AI component, but instead comprises a business process with a manual activity, whose call is logged with the relevant metadata and process variables included.
@@ -97,6 +103,7 @@ The AI does not make its own decision here, but it can stop decisions of others 
 
 ## Group 2: Intervenability
 
+This group of patterns is at the core of the orchestration idea: Patterns to maintain control of machine learning models in use. 
 ### Controllable Degree of Automation
 
 The use of process engines is an investment in flexibility - changes can be made in a coordinated manner without the need for complex release processes. In this way, an XOR gateway can be used to control automation levels.
@@ -166,6 +173,7 @@ Researchers from KIT came up with this idea and took it one step further. They u
 
 ## Group 3: Data Protection and Compliance
 
+Data protection does not end on the database layer of software architecture. It has implications for the application of machine learning methods on the process orchestration level.
 ### GDPR Consent
 
 According to GPDR Art. 22 (Lawfulness of automated processing) para. 1, there is a right of opposition. In other words: Consent of individuals may be necessary to process their data for specific purposes. Among other potential reasons for the lawfulness of processing, consent should be the normal case.
@@ -190,6 +198,8 @@ Beyond the expected data logging by a process engine, there is more to learn: Re
 :warning: As soon as personal data within the meaning of the GPDR are processed in the ML model, this pattern is mandatory (cf. GDPR Art. 22 Para. 3).
 
 ## Group 4: Multi-Model Patterns
+
+After investigating process orchestration patters around single machine learning models, the next chapter investigates those patterns that contain more than one model.
 
 ### Anomaly Decision Safeguard
 
@@ -243,6 +253,66 @@ The separation of these two steps makes strategic sense because _Entity Extracti
 :warning: There may be incidents that do not belong in any process or contain multiple concerns.
 
 :warning: The target metric used for machine learning should not only be optimized for the "hit rate" but should also take individual error costs into account. The false classification of a contract application document as a contract termination can be expensive.
+
+## Group 5: Training
+
+Here, we are switching into a different phase of a machine learning project: The phase of data preparation and learning. A process perspective is essential here as well.
+
+### Pipelines and DAGs
+
+Training and data preprocessing are organized in directed, acyclic graphs (DAGs) or pipelines.
+
+This is a best practice and a core assumption of many leightweight tools such as [Apache Airflow](https://airflow.apache.org) or [Dagster](https://dagster.io/) as well as in highly integrated MLOps platforms such as [Kubeflow](https://www.kubeflow.org/) or [Azure ML](https://azure.microsoft.com/en-us/services/machine-learning/).
+
+This is a (simplified) example that we can extend and reflect upon.
+
+![Training Pipeline - Example 1](models/training-pipeline-1.png "Training Pipeline - Example 1: Scoring and XAI in parallel")
+
+The reasoning behind this is as follows:
+- First of all, the process serves as a highlevel documentation of the overall process which is easier to understand than a script, especially when activities are running parallely.
+- The activities in the process / DAG are meaningful modularizations. They are ready to be reused. This is especially useful for preparation tasks that can fuel multiple machine learning experiments.
+- Activities with defined inputs and outputs enable intelligent caching of intermediate results.
+- By explicating what can be run in parallel (or what must happen sequentially), you automatically make use of the scaleability features of cloud- or cluster-based machine learning environments.  
+- You can define reproducable environments (containers) for activities. This makes it more easy to re-run machine learning training runs, while Python versions, APIs and upstream libraries change all the time.
+- Also, this makes it more easy to mix technologies, both neighbouring technologies (different Python or Tensorflow versions) and more divergent technologies (dbt, R, Python and Java code) in one pipeline. 
+
+It will be useful to investigate and explain useful pipeline patterns. We are looking forward to more community discussion and contributions here.
+
+### Increasing Levels of Destruction
+
+Data preprocessing is crucial in any machine learning project after the initial experimental phase and often even then. Most of the data scientist's time investment will be spent here. It is reasonable to assume a considerable number of preprocessing steps that build each other.
+Without further criteria, those preprocessing steps will be performed in order of their creation: any conceptual idea and any fix for a newly found data quality problem is regularly appended at the end of the chain. While this represents the chain of thought of the data scientist it effectively _breaks_ the explainability of the resulting ML model.
+
+Some operations typically found in data preparation scripts are more destructive than others.
+Consider the case of missing value imputation: Many ML models can not use incomplete datasets at all. One way to approach this problem is by filling in the gaps, for example with a reasonable average value, i.e. a mean age of all loan applicants. Eventually, we will need to justify our model's decision for an individual case using explainable AI models. For the loan application case any explanation using an artificial age is _inacceptable_. Using imputed values may be beneficial for the overall model, but it never is for an explanation of individual cases: I don't want to be judged by an age, I never provided.
+
+On the other hand, operations such as deriving an applicants age in years from his/her birthday to a number format is a perfectly reasonable transformation for a dataset to be used in explanations. Here, no information is lost or assumed. You could even argue, that transormations of this kind make resulting interpretations easier to digest.
+
+With these two examples, we can derive the following recommended ordering for data proprocessing operations:
+
+1. Order your preprocessing operations from non-destructive (bijective) operations to destructive operations.
+2. Store a copy of your dataset, after all non-destructive operations are performed. This is your communicatable dataset, that external stakeholders can either understand, verify or mutate (in a sensitivity analysis). It must pass integrity expectations like: "_This is exactly the data you received._"
+3. Store a copy of your dataset, after all preprocessing operations have been performed. This is your debugging-dataset. It documents what changes the preprocessing operations made and hence, what the machine learning algorithm received.
+
+![Increasing Levels of Destruction](models/increasing_levels_of_destruction.png "Increasing Levels of Destruction - Before Training and Serving")
+
+Typical non-destructive preprocessing operations are for example:
+
+- Changing the data type without loss of information (string to category/number), integer to float)
+- Data cleansing in the form of removing data instances or features without information content, with many corrupt, missing or invalid values
+- Constructing new features from existing ones, such as age from a date of birth
+
+Typical destructive preprocessing operations are:
+- Change of data type with loss of information (float to int)
+- Aggregation of values to bins (numeric) or category ("light blue" and "navy blue" to "blue")
+- Replace missing values
+- Replace feature(s) with constructed feature(s), e.g. through dimensionality reduction algorithms such as a PCA.
+
+Although standardization and normalization of numerical values are non-destructive too (in case the scaler is saved), it is better to apply these operations as a last step in order to keep the data human understandable.
+
+### Human in the Loop
+
+This is a particular form of machine learning that needs more explanation and especially calls for a BPM perspective, since the two participants of the process need to be intelligently orchestrated.
 
 ## Summary and Outlook
 
