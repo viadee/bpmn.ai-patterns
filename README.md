@@ -272,9 +272,12 @@ The reasoning behind this is as follows:
 - First of all, the process serves as a highlevel documentation of the overall process which is easier to understand than a script, especially when activities are running parallely.
 - The activities in the process / DAG are meaningful modularizations. They are ready to be reused. This is especially useful for preparation tasks that can fuel multiple machine learning experiments.
 - Activities with defined inputs and outputs enable intelligent caching of intermediate results.
+- It reduces cognitive load to focus on the requirements of processing steps, i.e. the inputs and preconditions you need right now. Procedural thinking ("what happens next?") is more difficult especially in complex systems. Looking back is easier, than planning ahead.
 - By explicating what can be run in parallel (or what must happen sequentially), you automatically make use of the scaleability features of cloud- or cluster-based machine learning environments.  
 - You can define reproducable environments (containers) for activities. This makes it more easy to re-run machine learning training runs, while Python versions, APIs and upstream libraries change all the time.
 - Also, this makes it more easy to mix technologies, both neighbouring technologies (different Python or Tensorflow versions) and more divergent technologies (dbt, R, Python and Java code) in one pipeline. 
+
+Finally, you could argue that the DAG-representation of training and preprocessing work has become a Dominant Design already: It is established enough, that ML practioners can switch from one DAG-based framework to the other with relative ease.
 
 It will be useful to investigate and explain useful pipeline patterns. We are looking forward to more community discussion and contributions here.
 
