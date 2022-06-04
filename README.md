@@ -1,6 +1,6 @@
 # bpmn.ai: Process Patterns to Orchestrate your AI Services in Business Processes
 
-Ben Wolters, Frank Köhne
+Ben Wolters, Frank Köhne, Mario Micudaj
 
 The journey through an AI project often only begins with a successful proof of concept. There is still little consensus regarding the orchestration of AI services. Tool support and methodological discussions often culminate with the provision of machine learning pipelines (e.g. through [Kubeflow](https://www.kubeflow.org/)) and web services in the cloud. 
 From an architectural perspective, making a single machine learning model usable is straightforward (e.g. via [KFServing](https://github.com/kubeflow/kfserving)) and Cloud providers such as [Azure ML Services](https://azure.microsoft.com/de-de/services/machine-learning/) even hide the service creation and then claim this to be an end-to-end solution to Machine Learning. But, how can you integrate and combine such services into business processes, in a meaningful way?
